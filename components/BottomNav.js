@@ -1,12 +1,12 @@
-import {View, Text, StyleSheet, TouchableOpacity} from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import theme from "../utils/theme.js";
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import AntDesign from 'react-native-vector-icons/AntDesign';
-import {useDispatch, useSelector} from 'react-redux';
-import {navigate, navigationRef} from "../App.js"
-import React, {useEffect, useLayoutEffect, useState} from 'react';
-import {useFocusEffect, useIsFocused} from '@react-navigation/native';
+import { useDispatch, useSelector } from 'react-redux';
+import { navigate, navigationRef } from "../App.js"
+import React, { useEffect, useLayoutEffect, useState } from 'react';
+import { useFocusEffect, useIsFocused } from '@react-navigation/native';
 import { addNavREf } from '../redux/actions/navigationREf.js';
 import FontAwesome from 'react-native-vector-icons/FontAwesome5';
 
@@ -17,8 +17,8 @@ const styles = StyleSheet.create({
     left: 0,
     width: '100%',
   },
-  iconText:{
-    fontSize:10
+  iconText: {
+    fontSize: 10
   },
   bottomNav: {
     backgroundColor: theme.colors.white,
@@ -51,7 +51,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     borderRadius: 30,
-    elevation:1,
+    elevation: 1,
 
   },
   optionExtra: {
@@ -78,7 +78,7 @@ const styles = StyleSheet.create({
     left: '48%',
     bottom: 38,
     shadowColor: theme.colors.tertiary,
-    shadowOffset: {height: 2, width: 1},
+    shadowOffset: { height: 2, width: 1 },
     shadowOpacity: 1,
     shadowRadius: 5,
     elevation: 5,
@@ -98,7 +98,7 @@ const styles = StyleSheet.create({
   },
   activeBox: {
     backgroundColor: 'white',
-    borderRadius:30,
+    borderRadius: 30,
     height: 60,
     width: 60,
     justifyContent: 'center',
@@ -108,24 +108,24 @@ const styles = StyleSheet.create({
 });
 
 const BottomNav = () => {
-  const nav= useSelector(({nav}) => nav?.nav);
-  
-  console.log("redux",nav);
-  const dispatch=useDispatch();
-  const focus=useIsFocused()
-//   // useEffect(()=>{
-//     const nav = navigationRef?.current?.getCurrentRoute()?.name;
-//   console.log("fous",nav);
+  const nav = useSelector(({ nav }) => nav?.nav);
+
+  console.log("redux", nav);
+  const dispatch = useDispatch();
+  const focus = useIsFocused()
+  //   // useEffect(()=>{
+  //     const nav = navigationRef?.current?.getCurrentRoute()?.name;
+  //   console.log("fous",nav);
   // })
 
 
-    // console.log('Current route name:', ref);
+  // console.log('Current route name:', ref);
 
-  
+
   return (
     <View style={styles.bottomNavContainer}>
       <View style={styles.bottomNav}>
-      <View style={nav == 'Home' ? styles.activeBox : null}>
+        <View style={nav == 'Home' ? styles.activeBox : null}>
           <TouchableOpacity
             style={
               nav == 'Home'
@@ -143,10 +143,10 @@ const BottomNav = () => {
               size={24}
               style={[
                 styles.bottomNavIcons,
-                {color: nav == 'Home' ? 'white' : theme.colors.background},
+                { color: nav == 'Home' ? 'white' : theme.colors.background },
               ]}
             />
-            {nav!=="Home"&&<Text style={[styles.iconText]}>Home</Text>}
+            {nav !== "Home" && <Text style={[styles.iconText]}>Home</Text>}
             {/* <Text style={styles.bottomNavText}>Extras</Text> */}
           </TouchableOpacity>
         </View>
@@ -160,7 +160,7 @@ const BottomNav = () => {
             }
             activeOpacity={0.5}
             onPress={() => {
-            //   navigate('Medicine');
+              //   navigate('Medicine');
               dispatch(addNavREf("Medicine"));
             }}
             navigationRef>
@@ -169,17 +169,17 @@ const BottomNav = () => {
               size={24}
               style={[
                 styles.bottomNavIcons,
-                {color: nav == 'Medicine' ? 'white' : theme.colors.background},
+                { color: nav == 'Medicine' ? 'white' : theme.colors.background },
               ]}
             />
-                        {nav!=="Medicine"&&<Text style={[styles.iconText]}>Medicine</Text>}
+            {nav !== "Medicine" && <Text style={[styles.iconText]}>Medicine</Text>}
 
             {/* <Text style={styles.bottomNavText}>Extras</Text> */}
           </TouchableOpacity>
         </View>
 
         {/* <TouchableOpacity onPress={() => navigation.navigate("MineJobCreation")}>
-navigationRef          <Text style={styles.dcrText}>Daily Call Report</Text>
+                navigationRef          <Text style={styles.dcrText}>Daily Call Report</Text>
         </TouchableOpacity> */}
         {/* <TouchableOpacity
           style={styles.dcrButton}
@@ -188,6 +188,9 @@ navigationRef          <Text style={styles.dcrText}>Daily Call Report</Text>
         >navigationRef
           <AntDesign name="form" size={30} style={styles.dcrIcon} />
         </TouchableOpacity> */}
+
+
+
         <View style={[nav == 'Upload' ? styles.activeBox : null]}>
           <TouchableOpacity
             style={
@@ -197,7 +200,7 @@ navigationRef          <Text style={styles.dcrText}>Daily Call Report</Text>
             }
             activeOpacity={0.5}
             onPress={() => {
-            //   navigate('Upload');
+              navigate('Upload');
               dispatch(addNavREf("Upload"));
 
             }}
@@ -207,14 +210,17 @@ navigationRef          <Text style={styles.dcrText}>Daily Call Report</Text>
               size={27}
               style={[
                 styles.bottomNavIcons,
-                {color: nav == 'Upload' ? 'white' : theme.colors.background},
+                { color: nav == 'Upload' ? 'white' : theme.colors.background },
               ]}
             />
-                        {nav!=="Upload"&&<Text style={[styles.iconText]}>Upload</Text>}
+            {nav !== "Upload" && <Text style={[styles.iconText]}>Upload</Text>}
 
             {/* <Text style={styles.bottomNavText}>Extras</Text> */}
           </TouchableOpacity>
         </View>
+
+
+
         <View style={nav == 'Doctors' ? styles.activeBox : null}>
           <TouchableOpacity
             style={
@@ -234,14 +240,15 @@ navigationRef          <Text style={styles.dcrText}>Daily Call Report</Text>
               size={24}
               style={[
                 styles.bottomNavIcons,
-                {color: nav == 'Doctors' ? 'white' : theme.colors.background},
+                { color: nav == 'Doctors' ? 'white' : theme.colors.background },
               ]}
             />
-            {nav!=="Doctors"&&<Text style={[styles.iconText]}>Doctors</Text>}
+            {nav !== "Doctors" && <Text style={[styles.iconText]}>Doctors</Text>}
 
             {/* <Text style={styles.bottomNavText}>Extras</Text> */}
           </TouchableOpacity>
         </View>
+
         <View style={nav == 'Cart' ? styles.activeBox : null}>
           <TouchableOpacity
             style={
@@ -251,7 +258,7 @@ navigationRef          <Text style={styles.dcrText}>Daily Call Report</Text>
             }
             activeOpacity={0.5}
             onPress={() => {
-            //   navigate('Cart');
+              //   navigate('Cart');
               dispatch(addNavREf("Cart"));
 
             }}
@@ -261,16 +268,16 @@ navigationRef          <Text style={styles.dcrText}>Daily Call Report</Text>
               size={24}
               style={[
                 styles.bottomNavIcons,
-                {color: nav == 'Cart' ? 'white' : theme.colors.background},
+                { color: nav == 'Cart' ? 'white' : theme.colors.background },
               ]}
             />
-            {nav!=="Cart"&&<Text style={[styles.iconText]}>Cart</Text>}
+            {nav !== "Cart" && <Text style={[styles.iconText]}>Cart</Text>}
 
             {/* <Text style={styles.bottomNavText}>Extras</Text> */}
           </TouchableOpacity>
         </View>
 
-     
+
       </View>
     </View>
   );
