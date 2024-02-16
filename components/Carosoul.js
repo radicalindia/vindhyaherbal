@@ -23,9 +23,10 @@ const HorizontalPhotoScrollView2 = () => {
     return () => clearInterval(interval);
   }, [currentImageIndex, 3]);
   const items = [
-    { text: 'Item 1', color: '#FF5733' },
-    { text: 'Item 2', color: '#33FF57' },
-    { text: 'Item 3', color: '#5733FF' },
+    
+    { text: 'Item 1',  uri: 'https://onemg.gumlet.io/9bf3d88a-7d33-4746-b2c3-3499afd73ad2_1708057517.png?w=899&h=200&format=auto' },
+    { text: 'Item 2', uri:'https://onemg.gumlet.io/ff8ecaa6-f7e3-4add-bfb3-e7a62ef134ee_1707991323.png?w=899&h=200&format=auto'},
+    { text: 'Item 3', uri:'https://onemg.gumlet.io/750b4e8c-8283-4ad9-8f54-d04260c188a0_1707976923.jpg?w=899&h=200&format=auto' },
     // Add more items as needed
   ];
 
@@ -43,12 +44,12 @@ const HorizontalPhotoScrollView2 = () => {
       }}
     >
            {items.map((item, index) => (
-        <View
+        <Image
+        source={{uri:item.uri}}
           key={index}
           style={[styles.item, { width: itemWidth, height: itemHeight, backgroundColor: item.color,borderRadius:10 }]}
         >
-          <Text></Text>
-        </View>
+        </Image>
       ))}
 
     </ScrollView>

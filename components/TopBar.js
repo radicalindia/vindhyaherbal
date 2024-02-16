@@ -18,7 +18,6 @@ const styles = StyleSheet.create({
         height: '5%',
         paddingHorizontal: 20,
         paddingTop: 10,
-        borderRadius: 20,
         backgroundColor: "white",
         elevation: 10,
         justifyContent: "space-between",
