@@ -61,7 +61,7 @@ const styles = StyleSheet.create({
     width: "44%",
     height: 100,
     // borderRadius:2,
-    backgroundColor: "skyblue",
+    backgroundColor: "white",
     elevation: 3,
     marginHorizontal: 10,
     marginVertical: 10,

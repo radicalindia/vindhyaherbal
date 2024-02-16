@@ -8,7 +8,8 @@ export const  globalStyles = {
         width:"100%"
     },
     searchBox: {
-        backgroundColor: '#91959D',
+        backgroundColor: 'white',
+        elavation:2,
         opacity:.8,
         height: 40,
         borderRadius: 10,

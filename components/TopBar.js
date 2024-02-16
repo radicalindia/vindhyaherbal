@@ -1,12 +1,13 @@
 import React from 'react';
 import { View, StyleSheet ,Text } from 'react-native';
 import { Image } from 'react-native';
+import theme from '../utils/theme';
 
 
 const TopBar = () => {
     return (
             <View style={[styles.top]}>
-                <Text style={[styles.text]}>Hrishi</Text>
+                <Text style={[styles.text]}>Medical On Wheel</Text>
                 <Image style={[styles.im]} source={require("../assests/images/download.png")}/>
             </View>
     );
@@ -16,7 +17,7 @@ const styles = StyleSheet.create({
     top: {
         width: '100%',
         height: '5%',
-        paddingHorizontal: 20,
+        paddingHorizontal: 10,
         paddingTop: 10,
         backgroundColor: "white",
         elevation: 10,
@@ -25,10 +26,13 @@ const styles = StyleSheet.create({
         marginRight:'auto',
     },
     text:{
-        fontSize: 16,
+        fontSize: 22,
         fontWeight: 'bold',
         marginBottom: 'auto',
-        marginLeft:40
+        // marginLeft:10,
+        color:theme.colors.primaryOpacity,
+        textDecorationLine:"underline",
+        opacity:.5
     },
     im:{
             width: 20,
