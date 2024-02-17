@@ -6,7 +6,7 @@ const HorizontalPhotoScrollView2 = () => {
   const scrollViewRef = useRef(null);
   const { width } = Dimensions.get('window');
   const itemWidth = width; // 100% width
-  const itemHeight = 130; 
+  const itemHeight = 160; 
 //   console.log(images)
 
 
@@ -58,7 +58,7 @@ const HorizontalPhotoScrollView2 = () => {
 
 const styles = StyleSheet.create({
   container: {
-     height:130,
+     height:160,
     //  backgroundColor:"black",
     alignItems: 'center',
     paddingVertical: 16,

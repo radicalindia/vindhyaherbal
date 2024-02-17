@@ -16,7 +16,7 @@ export const  globalStyles = {
         justifyContent: 'space-between',
         paddingHorizontal: 7,
         alignItems: 'center',
-        // elevation:3,
+        elevation:1,
         marginVertical:10
       },
     rowflex2:{
