@@ -1,14 +1,22 @@
 import React from 'react';
-import { View, StyleSheet ,Text } from 'react-native';
+import { View, StyleSheet ,Text, TouchableOpacity } from 'react-native';
 import { Image } from 'react-native';
 import theme from '../utils/theme';
+import { navigate } from '../App';
+
 
 
 const TopBar = () => {
+    const handleIconPress = ()=>{
+      navigate('Profile');
+    }
     return (
             <View style={[styles.top]}>
                 <Text style={[styles.text]}>Medical On Wheel</Text>
+                {/* <Text style={[styles.text]}>Hrishi</Text> */}
+                <TouchableOpacity onPress={handleIconPress}>
                 <Image style={[styles.im]} source={require("../assests/images/download.png")}/>
+                </TouchableOpacity>
             </View>
     );
 }

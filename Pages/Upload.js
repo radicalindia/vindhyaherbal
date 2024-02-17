@@ -4,6 +4,7 @@ import { navigate, navigationRef } from "../App.js";
 import { useDispatch, useSelector } from 'react-redux';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import { addNavREf } from '../redux/actions/navigationREf.js';
+import theme from '../utils/theme.js';
 
 
 
@@ -34,35 +35,12 @@ const Upload = () => {
 
     return (
         <View style={[nav == 'Upload' ? styles.activeBox : null]}>
-      <TouchableOpacity
-        style={
-          nav == 'Upload'
-            ? styles.bottomNavOptionactives
-            : styles.bottomNavOptions
-        }
-        activeOpacity={0.5}
-        onPress={() => {
-          navigate('Upload');
-          dispatch(addNavREf('Upload'));
-        }}
-        navigationRef>
-        <MaterialCommunityIcons
-          name="plus-thick"
-          size={27}
-          style={[
-            styles.bottomNavIcons,
-            { color: nav == 'Upload' ? 'white' : theme.colors.background },
-          ]}
-        />
-        {nav !== 'Upload' && <Text style={[styles.iconText]}>Upload</Text>}
-      </TouchableOpacity>
 
-      {/* Button for uploading image */}
+
       <TouchableOpacity onPress={handleImagePick}>
         <Text>Upload Image</Text>
       </TouchableOpacity>
 
-      {/* Button to handle image upload */}
       <TouchableOpacity onPress={handleUploadImage}>
         <Text>Upload</Text>
       </TouchableOpacity>

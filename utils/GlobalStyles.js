@@ -9,7 +9,7 @@ export const  globalStyles = {
     },
     searchBox: {
         backgroundColor: 'white',
-        elavation:2,
+      
         opacity:.8,
         height: 40,
         borderRadius: 10,
@@ -17,6 +17,7 @@ export const  globalStyles = {
         justifyContent: 'space-between',
         paddingHorizontal: 7,
         alignItems: 'center',
+        elevation:3,
       },
     rowflex2:{
         flexDirection:"row",
