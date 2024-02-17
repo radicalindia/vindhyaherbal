@@ -4,30 +4,39 @@ import { View, Text, StyleSheet, ScrollView, TouchableOpacity, TextInput, FlatLi
 import HorizontalPhotoScrollView2 from '../components/Carosoul';
 import { globalStyles } from '../utils/GlobalStyles';
 import theme from '../utils/theme';
-// import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
+import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 
 
 
 const YourComponent = () => {
-  // const [search, setSearch] = useState();
+  const [search, setSearch] = useState();
   return (
 
 
 
-    <View style={[globalStyles.container2, {}]}>
+    <ScrollView contentContainerStyle={[{paddingBottom:70,paddingHorizontal:10,backgroundColor:"white"}]}>
 
 
 
       {/* <Text style={[globalStyles.text, { marginVertical: 10 }]}>Home</Text> */}
 
-
+      <View style={[globalStyles.rowflex, globalStyles.searchBox]}>
+        <MaterialIcons name="search" color="#35383F" size={20} />
+        <TextInput
+          style={{ width: '90%' }}
+          placeholder="Search Medicine"
+          value={search}
+          onChangeText={(e) => setSearch(e)}
+          placeholderTextColor={'#35383F'}
+        />
+      </View>
 
       <HorizontalPhotoScrollView2 />
 
       <Text style={[styles.text, globalStyles.text]}>Products</Text>
       <View style={[styles.ext]}>
         <View style={[styles.producBo]}>
-          <Image style={{ width: 60, height: 20, marginLeft: 5, marginTop: 5 }} source={require("../assests/images/medical.png")} />
+          {/* <Image style={{ width: 60, height: 20, marginLeft: 5, marginTop: 5 }} source={require("../assests/images/medical.png")} /> */}
           <Image style={{ height: 70, }} resizeMode='contain' source={{ uri: "https://onemg.gumlet.io/a_ignore,w_380,h_380,c_fit,q_auto,f_auto/5cc48b44bac744eba09ef6c33b006cef.jpg" }} />
           <Text style={{ color: "black", fontWeight: "bold", marginLeft: 5, textAlign: "center", fontSize: 13 }}>Himalaya Vitals</Text>
           <Text style={{ marginLeft: 10, fontSize: 12 }}>Made in India</Text>
@@ -41,7 +50,7 @@ const YourComponent = () => {
 
         </View>
         <View style={[styles.producBo]}>
-          <Image style={{ width: 60, height: 20, marginLeft: 5, marginTop: 5 }} source={require("../assests/images/medical.png")} />
+          {/* <Image style={{ width: 60, height: 20, marginLeft: 5, marginTop: 5 }} source={require("../assests/images/medical.png")} /> */}
           <Image style={{ height: 70, }} resizeMode='contain' source={{ uri: "https://onemg.gumlet.io/a_ignore,w_380,h_380,c_fit,q_auto,f_auto/5cc48b44bac744eba09ef6c33b006cef.jpg" }} />
           <Text style={{ color: "black", fontWeight: "bold", marginLeft: 5, textAlign: "center", fontSize: 13 }}>Himalaya Vitals</Text>
           <Text style={{ marginLeft: 10, fontSize: 12 }}>Made in India</Text>
@@ -56,7 +65,7 @@ const YourComponent = () => {
       </View>
       <View style={[styles.ext]}>
         <View style={[styles.producBo]}>
-          <Image style={{ width: 60, height: 20, marginLeft: 5, marginTop: 5 }} source={require("../assests/images/medical.png")} />
+          {/* <Image style={{ width: 60, height: 20, marginLeft: 5, marginTop: 5 }} source={require("../assests/images/medical.png")} /> */}
           <Image style={{ height: 70, }} resizeMode='contain' source={{ uri: "https://onemg.gumlet.io/a_ignore,w_380,h_380,c_fit,q_auto,f_auto/5cc48b44bac744eba09ef6c33b006cef.jpg" }} />
           <Text style={{ color: "black", fontWeight: "bold", marginLeft: 5, textAlign: "center", fontSize: 13 }}>Himalaya Vitals</Text>
           <Text style={{ marginLeft: 10, fontSize: 12 }}>Made in India</Text>
@@ -69,7 +78,7 @@ const YourComponent = () => {
           </View>
         </View>
         <View style={[styles.producBo]}>
-          <Image style={{ width: 60, height: 20, marginLeft: 5, marginTop: 5 }} source={require("../assests/images/medical.png")} />
+          {/* <Image style={{ width: 60, height: 20, marginLeft: 5, marginTop: 5 }} source={require("../assests/images/medical.png")} /> */}
           <Image style={{ height: 70, }} resizeMode='contain' source={{ uri: "https://onemg.gumlet.io/a_ignore,w_380,h_380,c_fit,q_auto,f_auto/5cc48b44bac744eba09ef6c33b006cef.jpg" }} />
           <Text style={{ color: "black", fontWeight: "bold", marginLeft: 5, textAlign: "center", fontSize: 13 }}>Himalaya Vitals</Text>
           <Text style={{ marginLeft: 10, fontSize: 12 }}>Made in India</Text>
@@ -129,7 +138,7 @@ const YourComponent = () => {
         </View>
 
       </ScrollView>
-    </View>
+    </ScrollView>
   );
 };
 
@@ -148,7 +157,9 @@ const styles = StyleSheet.create({
   },
   producBo: {
     width: "46%",
-    height: 180,
+    height: 160,
+    paddingTop:10,
+    marginTop:10,
     // marginRight: 20,
     borderRadius: 10,
     backgroundColor: "white",
@@ -157,9 +168,9 @@ const styles = StyleSheet.create({
     borderBottomWidth: 2,
   },
   producBox: {
-    width: 120,
+    width: "23%",
     height: 120,
-    marginRight: 20,
+    marginRight: 10,
     borderRadius: 10,
     backgroundColor: "white",
     elevation: 2,

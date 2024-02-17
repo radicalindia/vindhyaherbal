@@ -32,7 +32,7 @@ const styles = StyleSheet.create({
         paddingHorizontal: 10,
         paddingTop: 10,
         backgroundColor: "white",
-        elevation: 10,
+        // elevation: 10,
         justifyContent: "space-between",
         flexDirection: 'row',
         // marginRight: 'auto',
@@ -42,7 +42,7 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
         // marginBottom: 'auto',
         color: 'black',
-        textDecorationLine: "underline",
+        // textDecorationLine: "underline",
         opacity: .8,
     },
     icon: {
