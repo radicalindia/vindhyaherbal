@@ -1,9 +1,12 @@
-import { View, Text, StyleSheet, FlatList, Image, TouchableOpacity } from 'react-native'
-import React from 'react'
+import { View, Text, TextInput, FlatList, StyleSheet, TouchableOpacity ,Image} from 'react-native'
+import React ,{useState}from 'react'
 import { globalStyles } from '../utils/GlobalStyles'
 import theme from '../utils/theme'
+import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
+
 
 const Pathology = () => {
+  const [search, setSearch] = useState();
   const data = [{ name: "blood test ", value: "345", includes: "5 test" }, { name: "Complete check up ", value: "345", includes: "6 test" }]
 
   const Renderitem = ({ item }) => {
@@ -19,6 +22,7 @@ const Pathology = () => {
   }
   return (
     <View style={[globalStyles.container2]}>
+      
       <FlatList
         data={data}
         renderItem={Renderitem}

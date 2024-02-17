@@ -11,12 +11,12 @@ export const  globalStyles = {
       backgroundColor:"white",
       // opacity:.8,
         height: 40,
-        borderRadius: 10,
+        borderRadius: 20,
         flexDirection: 'row',
         justifyContent: 'space-between',
         paddingHorizontal: 7,
         alignItems: 'center',
-        elevation:3,
+        // elevation:3,
         marginVertical:10
       },
     rowflex2:{

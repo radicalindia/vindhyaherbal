@@ -38,12 +38,12 @@ const styles = StyleSheet.create({
         // marginRight: 'auto',
     },
     text: {
-        fontSize: 22,
+        fontSize: 20,
         fontWeight: 'bold',
         // marginBottom: 'auto',
-        color: theme.colors.primaryOpacity,
+        color: 'black',
         textDecorationLine: "underline",
-        opacity: .5
+        opacity: .8,
     },
     icon: {
         width: 20,
