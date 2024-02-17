@@ -33,12 +33,12 @@ const Doctor = ({navigation}) => {
     )
   }
   return (
-    <View style={[globalStyles.container, { backgroundColor: "white" }]}>
+    <View style={[globalStyles.container2, { backgroundColor: "white" }]}>
       <View style={[globalStyles.rowflex, globalStyles.searchBox]}>
         <MaterialIcons name="search" color="#35383F" size={20} />
         <TextInput
-          style={{ width: '80%' }}
-          placeholder="Search"
+          style={{ width: '90%' }}
+          placeholder="Search Doctor"
           value={search}
           onChangeText={(e) => setSearch(e)}
           placeholderTextColor={'#35383F'}

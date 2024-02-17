@@ -8,9 +8,8 @@ export const  globalStyles = {
         width:"100%"
     },
     searchBox: {
-        backgroundColor: 'white',
-      
-        opacity:.8,
+      backgroundColor:"white",
+      // opacity:.8,
         height: 40,
         borderRadius: 10,
         flexDirection: 'row',
@@ -18,6 +17,7 @@ export const  globalStyles = {
         paddingHorizontal: 7,
         alignItems: 'center',
         elevation:3,
+        marginVertical:10
       },
     rowflex2:{
         flexDirection:"row",
@@ -53,7 +53,9 @@ export const  globalStyles = {
         height:"100%",
         backgroundColor:"white",
         paddingHorizontal:15,
-        paddingVertical:15
+        // paddingVertical:10,
+        paddingBottom:70,
+
         
     },
     container3:{

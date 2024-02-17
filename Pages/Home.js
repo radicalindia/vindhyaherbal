@@ -14,16 +14,16 @@ const YourComponent = () => {
 
 
 
-    <View style={[{ paddingHorizontal: 15,width:"100%",backgroundColor:"white"}]}>
+    <View style={[globalStyles.container2,{}]}>
 
 
 
       {/* <Text style={[globalStyles.text, { marginVertical: 10 }]}>Home</Text> */}
 
-      <View style={[globalStyles.rowflex,{marginBottom:10,marginTop:10}, globalStyles.searchBox]}>
+      <View style={[ globalStyles.searchBox,{backgroundColor:"white"}]}>
         <MaterialIcons name="search" color="#35383F" size={20} />
         <TextInput
-          style={{ width: '80%' }}
+          style={{ width: '90%',backgroundColor:"white" }}
           placeholder="Search"
           value={search}
           onChangeText={(e) => setSearch(e)}
@@ -59,7 +59,7 @@ const YourComponent = () => {
         </View>
       </View>
 
-      <Text style={[styles.text, globalStyles.text,{marginTop:"7%",marginBottom:5}]}>Lab Test Package</Text>
+      <Text style={[styles.text, globalStyles.text,{marginTop:"5%",marginBottom:5}]}>Lab Test Package</Text>
       <ScrollView horizontal>
 
         <View style={[styles.producBox]}>

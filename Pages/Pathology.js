@@ -32,20 +32,21 @@ const Pathology = () => {
 }
 
 
-const styles = StyleSheet.create({
-  producBox: {
-    width: "45%",
-    height: 120,
-    marginRight: "7%",
-    borderRadius: 10,
-    backgroundColor: "white",
-    elevation: 2,
-    borderBottomColor: theme.colors.primaryOpacity,
-    borderBottomWidth: 2,
-    paddingHorizontal: 5
-
-
-  },
+const styles= StyleSheet.create({
+    producBox: {
+        width: "48%",
+        height: 120,
+        marginRight:"2%",
+        marginTop:"2%",
+        borderRadius: 10,
+        backgroundColor: "white",
+        elevation: 2,
+        borderBottomColor: theme.colors.primaryOpacity,
+        borderBottomWidth: 2,
+        paddingHorizontal:5
+    
+    
+      },
 })
 
 export default Pathology
