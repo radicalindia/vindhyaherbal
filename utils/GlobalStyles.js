@@ -43,7 +43,7 @@ export const  globalStyles = {
     container:{
         width:"100%",
         height:"100%",
-        backgroundColor:theme.colors.whiteBg,
+        backgroundColor:"white",
         paddingHorizontal:30,
         paddingVertical:30
         
@@ -51,7 +51,7 @@ export const  globalStyles = {
     container2:{
         width:"100%",
         height:"100%",
-        backgroundColor:theme.colors.whiteBg,
+        backgroundColor:"white",
         paddingHorizontal:15,
         paddingVertical:15
         
@@ -59,7 +59,7 @@ export const  globalStyles = {
     container3:{
         width:"100%",
         height:"100%",
-        backgroundColor:theme.colors.whiteBg,
+        backgroundColor:"white",
         paddingHorizontal:10,
         paddingVertical:10
         

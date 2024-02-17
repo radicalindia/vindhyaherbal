@@ -9,6 +9,8 @@ import React, { useEffect, useLayoutEffect, useState } from 'react';
 import { useFocusEffect, useIsFocused } from '@react-navigation/native';
 import { addNavREf } from '../redux/actions/navigationREf.js';
 import FontAwesome from 'react-native-vector-icons/FontAwesome5';
+import Fontist from 'react-native-vector-icons/Fontisto.js';
+
 
 const styles = StyleSheet.create({
   bottomNavContainer: {
@@ -249,29 +251,29 @@ const BottomNav = () => {
           </TouchableOpacity>
         </View>
 
-        <View style={nav == 'Cart' ? styles.activeBox : null}>
+        <View style={nav == 'Pathalogy' ? styles.activeBox : null}>
           <TouchableOpacity
             style={
-              nav == 'Cart'
+              nav == 'Pathalogy'
                 ? styles.bottomNavOptionactives
                 : styles.bottomNavOptions
             }
             activeOpacity={0.5}
             onPress={() => {
-              //   navigate('Cart');
-              dispatch(addNavREf("Cart"));
+                navigate('Pathalogy');
+              dispatch(addNavREf("Pathalogy"));
 
             }}
             navigationRef>
-            <MaterialCommunityIcons
-              name="cart"
+            <Fontist
+              name="test-bottle"
               size={24}
               style={[
                 styles.bottomNavIcons,
-                { color: nav == 'Cart' ? 'white' : theme.colors.background },
+                { color: nav == 'Pathalogy' ? 'white' : theme.colors.background },
               ]}
             />
-            {nav !== "Cart" && <Text style={[styles.iconText]}>Cart</Text>}
+            {nav !== "Pathalogy" && <Text style={[styles.iconText]}>Pathalogy</Text>}
 
             {/* <Text style={styles.bottomNavText}>Extras</Text> */}
           </TouchableOpacity>

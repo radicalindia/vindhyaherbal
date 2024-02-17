@@ -14,7 +14,7 @@ const YourComponent = () => {
 
 
 
-    <View style={[{ paddingHorizontal: 15,width:"100%"}]}>
+    <View style={[{ paddingHorizontal: 15,width:"100%",backgroundColor:"white"}]}>
 
 
 
