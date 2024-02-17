@@ -22,6 +22,7 @@ const TopBar = () => {
                 <Image style={[styles.icon]} source={require("../assests/images/download.png")} />
             </TouchableOpacity>
         </View>
+        
     );
 }
 
