@@ -34,9 +34,10 @@ const Pathology = () => {
 
 const styles= StyleSheet.create({
     producBox: {
-        width: "45%",
+        width: "48%",
         height: 120,
-        marginRight:"7%",
+        marginRight:"2%",
+        marginTop:"2%",
         borderRadius: 10,
         backgroundColor: "white",
         elevation: 2,
