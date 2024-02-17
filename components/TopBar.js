@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, StyleSheet ,Text, TouchableOpacity } from 'react-native';
+import { View, StyleSheet, Text, TouchableOpacity } from 'react-native';
 import { Image } from 'react-native';
 import theme from '../utils/theme';
 import { navigate } from '../App';
@@ -7,17 +7,21 @@ import { navigate } from '../App';
 
 
 const TopBar = () => {
-    const handleIconPress = ()=>{
-      navigate('Profile');
+    const handleIconPress = () => {
+        navigate('Profile');
     }
     return (
-            <View style={[styles.top]}>
-                <Text style={[styles.text]}>Medical On Wheel</Text>
-                {/* <Text style={[styles.text]}>Hrishi</Text> */}
-                <TouchableOpacity onPress={handleIconPress}>
-                <Image style={[styles.im]} source={require("../assests/images/download.png")}/>
-                </TouchableOpacity>
-            </View>
+        <View style={[styles.top]}>
+            <Text style={[styles.text]}>Medical On Wheel</Text>
+
+            <TouchableOpacity style={{marginLeft:"auto"}} onPress={handleIconPress}>
+            <Image style={styles.icon} source={require("../assests/images/cartIcon.png")} />
+            </TouchableOpacity>
+
+            <TouchableOpacity onPress={handleIconPress}>
+                <Image style={[styles.icon]} source={require("../assests/images/download.png")} />
+            </TouchableOpacity>
+        </View>
     );
 }
 
@@ -31,22 +35,23 @@ const styles = StyleSheet.create({
         elevation: 10,
         justifyContent: "space-between",
         flexDirection: 'row',
-        marginRight:'auto',
+        // marginRight: 'auto',
     },
-    text:{
+    text: {
         fontSize: 22,
         fontWeight: 'bold',
-        marginBottom: 'auto',
-        // marginLeft:10,
-        color:theme.colors.primaryOpacity,
-        textDecorationLine:"underline",
-        opacity:.5
+        // marginBottom: 'auto',
+        color: theme.colors.primaryOpacity,
+        textDecorationLine: "underline",
+        opacity: .5
     },
-    im:{
-            width: 20,
-            height: 20,
-            borderRadius: 50
-    }
+    icon: {
+        width: 20,
+        height: 20,
+        marginRight:10,
+        marginLeft: 'auto',
+    },
+
 })
 
 export default TopBar;
