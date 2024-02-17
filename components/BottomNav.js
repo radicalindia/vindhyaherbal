@@ -160,7 +160,7 @@ const BottomNav = () => {
             }
             activeOpacity={0.5}
             onPress={() => {
-              //   navigate('Medicine');
+                navigate('Medicine');
               dispatch(addNavREf("Medicine"));
             }}
             navigationRef>

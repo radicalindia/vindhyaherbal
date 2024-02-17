@@ -17,6 +17,7 @@ import Upload from './Pages/Upload';
 import DocterData from './Pages/DocterData';
 import TopBar from './components/TopBar';
 import Profile from './Pages/Profile';
+import Medicine from './Pages/Medicine';
 
 // const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
@@ -116,6 +117,11 @@ const App = () => {
           <Stack.Screen
             name="Profile"
             component={Profile}
+            options={{ title: 'Welcome', headerShown: false }}
+          />
+          <Stack.Screen
+            name="Medicine"
+            component={Medicine}
             options={{ title: 'Welcome', headerShown: false }}
           />
 
