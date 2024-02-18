@@ -65,51 +65,44 @@ import {
   TextInput,
 } from 'react-native';
 import React, { useState } from 'react';
-import {globalStyles} from '../utils/GlobalStyles';
+import { globalStyles } from '../utils/GlobalStyles';
 import theme from '../utils/theme';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 
 
 const Pathology = () => {
-    const [search, setSearch] = useState();
+  const [search, setSearch] = useState();
 
   const data = [
-    {name: 'blood test ', value: '345', includes: '5 test'},
-    {name: 'Complete check up ', value: '345', includes: '6 test'},
-    {name: 'blood test ', value: '345', includes: '5 test'},
-    {name: 'Complete check up ', value: '345', includes: '6 test'},
+    { name: 'blood test ', value: '345', includes: '5 test' },
+    { name: 'Complete check up ', value: '345', includes: '6 test' },
+    { name: 'blood test ', value: '345', includes: '5 test' },
+    { name: 'Complete check up ', value: '345', includes: '6 test' },
   ];
 
-  const Renderitem = ({item}) => {
+  const Renderitem = ({ item }) => {
     return (
       <TouchableOpacity style={[styles.producBox]}>
-        <Image
-          style={{width: 60, height: 20, marginLeft: 5, marginTop: 5}}
-          source={require('../assests/images/medical.png')}
-        />
-        <Image
-          style={{height: 70}}
-          resizeMode="contain"
-          source={{
-            uri: 'https://onemg.gumlet.io/a_ignore,w_380,h_380,c_fit,q_auto,f_auto/5cc48b44bac744eba09ef6c33b006cef.jpg',
-          }}
-        />
-        <Text
-          style={{
-            color: 'black',
-            fontWeight: 'bold',
-            marginLeft: 5,
-            textAlign: 'center',
-            fontSize: 13,
-          }}>
-          Himalaya Vitals
-        </Text>
+        <View style={[styles.producBo]}>
+          {/* <Image style={{ width: 60, height: 20, marginLeft: 5, marginTop: 5 }} source={require("../assests/images/medical.png")} /> */}
+          <Image style={{ height: 70, }} resizeMode='contain' source={{ uri: "https://onemg.gumlet.io/a_ignore,w_380,h_380,c_fit,q_auto,f_auto/5cc48b44bac744eba09ef6c33b006cef.jpg" }} />
+          <Text style={{ color: "black", fontWeight: "bold", marginLeft: 5, textAlign: "center", fontSize: 13 }}>Himalaya Vitals</Text>
+          <Text style={{ marginLeft: 10, fontSize: 12 }}>Made in India</Text>
+          <View style={{ marginLeft: 10, marginRight: 20, justifyContent: 'space-between', flexDirection: 'row' }}>
+            <View>
+              <Text>Rs. 299</Text>
+              <Text style = {{ textDecorationLine: 'line-through', color: 'red' }}>MRP :- 399/-</Text>
+            </View>
+            <Text>100gm</Text>
+          </View>
+
+        </View>
       </TouchableOpacity>
     );
   };
   return (
     <View style={[globalStyles.container2]}>
-         <View style={[globalStyles.rowflex, globalStyles.searchBox]}>
+      <View style={[globalStyles.rowflex, globalStyles.searchBox]}>
         <MaterialIcons name="search" color="#35383F" size={20} />
         <TextInput
           style={{ width: '90%' }}
@@ -132,16 +125,19 @@ const Pathology = () => {
 const styles = StyleSheet.create({
   producBox: {
     width: '48%',
-    height: 120,
+    height: 160,
+    paddingTop:10,
     marginRight: '2%',
     borderRadius: 10,
-    marginTop:"2%",
+    marginTop: "2%",
     backgroundColor: 'white',
     elevation: 2,
     borderBottomColor: theme.colors.primaryOpacity,
     borderBottomWidth: 2,
     paddingHorizontal: 5,
+
   },
 });
 
 export default Pathology;
+
