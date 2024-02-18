@@ -1,33 +1,38 @@
-import { View, Text, TextInput, FlatList, StyleSheet, TouchableOpacity } from 'react-native'
-import React, { useState } from 'react'
+import { View, Text, TextInput, FlatList, StyleSheet, TouchableOpacity, Image } from 'react-native'
+import React, { useEffect, useState } from 'react'
 import { globalStyles } from '../utils/GlobalStyles'
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
+import { useDispatch, useSelector } from 'react-redux';
+import { getDoctorsCategory } from '../redux/actions/doctors';
+import Svg, { Image as SvgImage } from 'react-native-svg';
 
 const Doctor = ({navigation}) => {
   const [search, setSearch] = useState();
+  const doctorCategory = useSelector(({doctors})=>doctors?.category?.response);
+  console.log(doctorCategory);
+  const [laoding,setLoading]=useState(false);
+  const dispatch=useDispatch()
+
+  useEffect(()=>{
+ const fetch=async()=>{
+  try {
+    setLoading(true);
+    await dispatch(getDoctorsCategory());
+    setLoading(false)  
+  } catch (error) {
+    console.log(error)
+  }
+  }
+ fetch();
+  },[])
   const doctorTypeArray = [
     { name: 'Cardiologists', value: 'cardiologists' },
-    { name: 'Orthopedics', value: 'orthopedics' },
-    { name: 'Dentist', value: 'dentist' },
-    { name: 'ENT Specialist', value: 'ent specialist' },
-    { name: 'Diabeto & Endo', value: 'diabeto & endo' },
-    { name: 'Gynecologists', value: 'gynecologists' },
-    { name: 'Ayurveda', value: 'ayurveda' },
-    { name: 'Child Specialist', value: 'child specialist' },
-    { name: 'Dermatologist', value: 'dermatologist' },
-    { name: 'Eye Specialist', value: 'eye specialist' },
-    { name: 'Consultant Physician', value: 'consultant physician' },
-    { name: 'Homeopath', value: 'homeopath' },
-    { name: 'Neurologist', value: 'neurologist' },
-    { name: 'Dietician', value: 'dietician' },
-    { name: 'Radiologist', value: 'radiologist' },
-    { name: 'Surgeon', value: 'surgeon' },
-    { name: 'Nephrologist', value: 'nephrologist' },
-    { name: 'Oncologist', value: 'oncologist' },
+
   ]
   const RenderItem = ({ item, index }) => {
     return (
-      <TouchableOpacity onPress={()=>{navigation.navigate("DocterData")}} style={[styles.renderItemBox]}>
+      <TouchableOpacity onPress={()=>{navigation.navigate("DocterData",{id:item.categoryId})}} style={[styles.renderItemBox]}>
+        <Image source={{uri:"https://www.medicalonwheel.com/images/icon/IconImage_758.svg"}} style={{height:60,width:60}}/>
         <Text style={{ color: "black" }}>{item.name}</Text>
       </TouchableOpacity>
     )
@@ -46,7 +51,7 @@ const Doctor = ({navigation}) => {
       </View>
       {/* <Text>Doctor</Text> */}
       <FlatList
-        data={doctorTypeArray}
+        data={doctorCategory}
         renderItem={RenderItem}
         numColumns={2}
         keyExtractor={item => item._id}

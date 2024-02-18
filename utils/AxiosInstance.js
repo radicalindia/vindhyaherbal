@@ -1,13 +1,11 @@
 import axios from "axios";
-import { retrieveSubdomain, retrieveToken } from "./authStorage";
+// import { retrieveSubdomain, retrieveToken } from "./authStorage";
 
-const IP = "192.168.1.4";
 
-const devUrl = `http://${IP.trim()}:8002/`;
-const prodUrl = `https://shippiendev.medorn.com/`;
+const prodUrl = `https://medicalonwheel.com/appapi/activity.php`;
 
 export const http = axios.create({
-  baseURL: devUrl,
+  baseURL: prodUrl,
   headers: {
     "Content-Type": "application/json",
     Accept: "*/*",
@@ -18,10 +16,10 @@ export const http = axios.create({
 http.interceptors.request.use(
   async (config) => {
     // const subdomain = await retrieveSubdomain();
-    const token = await retrieveToken();
-    const bearerAuth = token ? token : null;
+    // const token = await retrieveToken();
+    // const bearerAuth = token ? token : null;
     // if (subdomain) config.headers.origin = `http://${subdomain}.medorn.com`;
-    if (bearerAuth) config.headers.Authorization = `bearer ${bearerAuth}`;
+    // if (bearerAuth) config.headers.Authorization = `bearer ${bearerAuth}`;
     // console.log("config", config.url);
     return config;
   },

@@ -16,7 +16,7 @@ const TopBar = () => {
             <Text style={[styles.text]}>Medical On Wheel</Text>
 
             <TouchableOpacity style={{marginLeft:"auto"}} onPress={handleIconPress}>
-            <MaterialCommunityIcons name="cart" color="white" size={20}/>
+            <MaterialCommunityIcons name="cart" color={theme.colors.primaryOpacity} size={20}/>
 
             </TouchableOpacity>
 
@@ -33,8 +33,8 @@ const styles = StyleSheet.create({
         height: 40,
         paddingHorizontal: 10,
         paddingTop: 10,
-        backgroundColor: theme.colors.primaryOpacity,
-        // elevation: 10,
+        backgroundColor: "white",
+        elevation: 1,
         justifyContent: "space-between",
         flexDirection: 'row',
         // marginRight: 'auto',
@@ -43,7 +43,7 @@ const styles = StyleSheet.create({
         fontSize: 20,
         fontWeight: 'bold',
         // marginBottom: 'auto',
-        color: "white",
+        color: theme.colors.primaryOpacity,
         // textDecorationLine: "underline",
         // opacity: .8,
     },

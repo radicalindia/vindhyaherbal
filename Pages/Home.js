@@ -1,15 +1,52 @@
-import React, { useState } from 'react';
-import { View, Text, StyleSheet, ScrollView, TouchableOpacity, TextInput, FlatList, Image, } from 'react-native';
+import React, { useEffect, useState } from 'react';
+import { View, Text, StyleSheet, ScrollView, TouchableOpacity, TextInput, FlatList, Image, ActivityIndicator, } from 'react-native';
 // Adjust the import path based on your project structure
 import HorizontalPhotoScrollView2 from '../components/Carosoul';
 import { globalStyles } from '../utils/GlobalStyles';
 import theme from '../utils/theme';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
+import { useDispatch, useSelector } from 'react-redux';
+import { getMedicines } from '../redux/actions/medicine';
 
 
 
 const YourComponent = () => {
   const [search, setSearch] = useState();
+  const medicines = useSelector(({medicine})=>medicine?.data?.response?.slice(0,4));
+  console.log(medicines);
+  const [laoding,setLoading]=useState(false);
+  const dispatch=useDispatch()
+
+  useEffect(()=>{
+ const fetch=async()=>{
+  try {
+    setLoading(true);
+    await dispatch(getMedicines());
+    setLoading(false)  
+  } catch (error) {
+    console.log(error)
+  }
+  }
+ fetch();
+  },[]);
+  const Renderitem = ({item}) => {
+    return (
+      <View style={[styles.producBo]}>
+      {/* <Image style={{ width: 60, height: 20, marginLeft: 5, marginTop: 5 }} source={require("../assests/images/medical.png")} /> */}
+      <Image style={{ height: 70, }} resizeMode='contain' source={{ uri:item.img }} />
+      <Text style={{ color: "black", fontWeight: "bold", textAlign: "center", fontSize: 12 }}>{item.productName.substring(0,50)}</Text>
+      {/* <Text style={{ marginLeft: 10, fontSize: 12 }}>Made in India</Text> */}
+      <View style={{ marginLeft: 10, marginRight: 20, justifyContent: 'space-between', flexDirection: 'row' }}>
+      <View style={{flexDirection:"row"}}>
+          <Text>₹ {item.offerPrice}</Text>
+          <Text style = {{ textDecorationLine: 'line-through', color: 'red',marginLeft:5 }}>{item.mrp}/-</Text>
+        </View>
+        {/* <Text>100gm</Text> */}
+      </View>
+
+    </View>
+    );
+  };
   return (
 
 
@@ -33,65 +70,13 @@ const YourComponent = () => {
 
       <HorizontalPhotoScrollView2 />
 
-      <Text style={[styles.text, globalStyles.text]}>Products</Text>
-      <View style={[styles.ext]}>
-        <View style={[styles.producBo]}>
-          {/* <Image style={{ width: 60, height: 20, marginLeft: 5, marginTop: 5 }} source={require("../assests/images/medical.png")} /> */}
-          <Image style={{ height: 70, }} resizeMode='contain' source={{ uri: "https://onemg.gumlet.io/a_ignore,w_380,h_380,c_fit,q_auto,f_auto/5cc48b44bac744eba09ef6c33b006cef.jpg" }} />
-          <Text style={{ color: "black", fontWeight: "bold", marginLeft: 5, textAlign: "center", fontSize: 13 }}>Himalaya Vitals</Text>
-          <Text style={{ marginLeft: 10, fontSize: 12 }}>Made in India</Text>
-          <View style={{ marginLeft: 10, marginRight: 20, justifyContent: 'space-between', flexDirection: 'row' }}>
-            <View>
-              <Text>Rs. 299</Text>
-              <Text style = {{ textDecorationLine: 'line-through', color: 'red' }}>MRP :- 399/-</Text>
-            </View>
-            <Text>100gm</Text>
-          </View>
-
-        </View>
-        <View style={[styles.producBo]}>
-          {/* <Image style={{ width: 60, height: 20, marginLeft: 5, marginTop: 5 }} source={require("../assests/images/medical.png")} /> */}
-          <Image style={{ height: 70, }} resizeMode='contain' source={{ uri: "https://onemg.gumlet.io/a_ignore,w_380,h_380,c_fit,q_auto,f_auto/5cc48b44bac744eba09ef6c33b006cef.jpg" }} />
-          <Text style={{ color: "black", fontWeight: "bold", marginLeft: 5, textAlign: "center", fontSize: 13 }}>Himalaya Vitals</Text>
-          <Text style={{ marginLeft: 10, fontSize: 12 }}>Made in India</Text>
-          <View style={{ marginLeft: 10, marginRight: 20, justifyContent: 'space-between', flexDirection: 'row' }}>
-            <View>
-              <Text>Rs. 299</Text>
-              <Text style={{ textDecorationLine: 'line-through', color: 'red' }}>MRP :- 399/-</Text>
-            </View>
-            <Text>100gm</Text>
-          </View>
-        </View>
-      </View>
-      <View style={[styles.ext]}>
-        <View style={[styles.producBo]}>
-          {/* <Image style={{ width: 60, height: 20, marginLeft: 5, marginTop: 5 }} source={require("../assests/images/medical.png")} /> */}
-          <Image style={{ height: 70, }} resizeMode='contain' source={{ uri: "https://onemg.gumlet.io/a_ignore,w_380,h_380,c_fit,q_auto,f_auto/5cc48b44bac744eba09ef6c33b006cef.jpg" }} />
-          <Text style={{ color: "black", fontWeight: "bold", marginLeft: 5, textAlign: "center", fontSize: 13 }}>Himalaya Vitals</Text>
-          <Text style={{ marginLeft: 10, fontSize: 12 }}>Made in India</Text>
-          <View style={{ marginLeft: 10, marginRight: 20, justifyContent: 'space-between', flexDirection: 'row' }}>
-            <View>
-              <Text>Rs. 299</Text>
-              <Text style={{ textDecorationLine: 'line-through', color: 'red' }}>MRP :- 399/-</Text>
-            </View>
-            <Text>100gm</Text>
-          </View>
-        </View>
-        <View style={[styles.producBo]}>
-          {/* <Image style={{ width: 60, height: 20, marginLeft: 5, marginTop: 5 }} source={require("../assests/images/medical.png")} /> */}
-          <Image style={{ height: 70, }} resizeMode='contain' source={{ uri: "https://onemg.gumlet.io/a_ignore,w_380,h_380,c_fit,q_auto,f_auto/5cc48b44bac744eba09ef6c33b006cef.jpg" }} />
-          <Text style={{ color: "black", fontWeight: "bold", marginLeft: 5, textAlign: "center", fontSize: 13 }}>Himalaya Vitals</Text>
-          <Text style={{ marginLeft: 10, fontSize: 12 }}>Made in India</Text>
-          <View style={{ marginLeft: 10, marginRight: 20, justifyContent: 'space-between', flexDirection: 'row' }}>
-            <View>
-              <Text>Rs. 299</Text>
-              <Text style={{ textDecorationLine: 'line-through', color: 'red' }}>MRP :- 399/-</Text>
-            </View>
-            <Text>100gm</Text>
-          </View>
-
-        </View>
-      </View>
+      <Text style={[styles.text, globalStyles.text]}>Popular</Text>
+      {laoding?<ActivityIndicator size={"large"} color={"black"} style={{marginTop:50,marginLeft:"auto",marginRight:"auto"}}/>:<FlatList
+        data={medicines}
+        renderItem={Renderitem}
+        keyExtractor={(_, index) => index.toString()}
+        numColumns={2}
+      />}
 
       <Text style={[styles.text, globalStyles.text, { marginTop: "5%", marginBottom: 5 }]}>Lab Test Package</Text>
       <ScrollView horizontal>
@@ -156,16 +141,18 @@ const styles = StyleSheet.create({
     marginBottom: 'auto',
   },
   producBo: {
-    width: "46%",
+    width: "49%",
     height: 160,
     paddingTop:10,
     marginTop:10,
-    // marginRight: 20,
+    marginRight: "1%",
     borderRadius: 10,
     backgroundColor: "white",
-    elevation: 2,
+    elevation: 1,
+    justifyContent:"space-between",
     borderBottomColor: theme.colors.primaryOpacity,
     borderBottomWidth: 2,
+    paddingHorizontal:5
   },
   producBox: {
     width: "23%",

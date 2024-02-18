@@ -1,12 +1,17 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { http } from "../../utiles/AxiosInstance";
 import { retrieveUser } from "../../utiles/authStorage";
+import { http } from "../../utils/AxiosInstance";
 
-export const getMedical = (body) => async (dispatch) => {
+export const getMedicines = (body) => async (dispatch) => {
+  const method="medicineProduct"
+
+  const {data} = await http.get('/',{  params: {
+    method,
+  },});
+  // console.log(data.response);
     try {
-        const data = await retrieveUser()
       dispatch({
-        type: "GET_MEDICAL",
+        type: "GET_MEDICINE",
         payload: data,
       });
     } catch (error) {
