@@ -6,12 +6,29 @@ import { CustomTextInput } from '../components/CustomTextInput';
 import { CustomButton } from '../components/CustomButton';
 import theme from '../utils/theme';
 import { useSelector } from 'react-redux';
+import axios from 'axios';
 
 
 const Login = () => {
     const [name, setName] = useState();
     const [email, setEmail] = useState();
     const [password, setPassword] = useState();
+
+    const login = async () => {
+        axios.get('https://medicalonwheel.com/appapi/activity.php', {
+            params: {
+                method: 'login',
+                email: 'ashu@gmail.com',
+                password: '123456'
+            }
+        })
+            .then(response => {
+                console.log('Response:', response.data);
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+    }
 
     return (
         <View style={[globalStyles.container]}>
