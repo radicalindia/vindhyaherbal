@@ -1,25 +1,60 @@
-import React from 'react';
-import { View, StyleSheet, Text } from 'react-native';
+import React, { useEffect, useState } from 'react';
+import { View, StyleSheet, Text, ActivityIndicator, FlatList } from 'react-native';
 import { globalStyles } from '../utils/GlobalStyles';
 import { Image } from 'react-native';
 import theme from '../utils/theme';
+import { useDispatch, useSelector } from 'react-redux';
+import { getDoctorsList } from '../redux/actions/doctors';
 
 
-const DocterData = () => {
-    return (
-        <View style={[globalStyles.container]}>
+const DocterData = ({route}) => {
+    const id = route?.params?.id
+    const doctorsList = useSelector(({doctors})=>doctors?.data?.response);
+    console.log(doctorsList);
+    const [laoding,setLoading]=useState(false);
+    const dispatch=useDispatch()
+  
+    useEffect(()=>{
+   const fetch=async()=>{
+    try {
+      setLoading(true);
+      await dispatch(getDoctorsList(id));
+      setLoading(false)  
+    } catch (error) {
+      console.log(error)
+    }
+    }
+   fetch();
+    },[]);
 
-            <View style={[styles.box]}>
+    const renderItem=({item})=>{
+        const image = `https://www.medicalonwheel.com/${item.icon.substring(27)}`
+        return (
+            // <View style={[styles.box]}>
 
-                <View style={[styles.producBo]}>
-                    <Image style={[styles.im]} source={{ uri: 'https://media.licdn.com/dms/image/C4E03AQGg7UPswASmiw/profile-displayphoto-shrink_800_800/0/1627022976454?e=2147483647&v=beta&t=OPU4e8y4iX6LplpBbx9fVM6hHVwy3bRMiwOxtsXszdM' }} />
+            <View style={[styles.producBo]}>
+                <Image style={[styles.im]} source={{ uri:image }} />
 
-                    <View>
-                        <Text style={[styles.text]}>Dr. Hrishi Jain</Text>
-                        <Text style={[styles.text, { marginTop: -5,color:theme.colors.primaryOpacity }]}>MBBS, MD, FCCP</Text>
-                    </View>
+                <View>
+                    <Text style={[styles.text]}>{item.doctorName}</Text>
+                    <Text style={[styles.text, { marginTop: -5,color:theme.colors.primaryOpacity }]}>{item.qualification}</Text>
+
                 </View>
-            </View>
+            {/* </View> */}
+        </View>
+        )
+    }
+    return (
+        <View style={[globalStyles.container2]}>
+
+        {laoding?<ActivityIndicator size={"large"} color={"black"} style={{marginTop:50,marginLeft:"auto",marginRight:"auto"}}/>:
+        <FlatList
+        contentContainerStyle={{paddingBottom:60}}
+        data={doctorsList}
+        renderItem={renderItem}
+        keyExtractor={(_, index) => index.toString()}
+        // numColumns={2}
+      />}
 
         </View>
     );
@@ -43,11 +78,13 @@ const styles = StyleSheet.create({
     },
 
     text: {
-        fontSize: 16,
+        fontSize: 13,
         fontWeight: 'bold',
         marginVertical: 10,
+        // width:150,
         marginBottom: 'auto',
-        marginLeft:40
+        // marginLeft:40,
+        marginRight:10
     },
 
     im: {

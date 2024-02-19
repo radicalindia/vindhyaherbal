@@ -130,7 +130,7 @@ const BottomNav = () => {
         <View >
           <TouchableOpacity
             style={
-               styles.bottomNavOptions
+              styles.bottomNavOptions
             }
             activeOpacity={0.5}
             onPress={() => {
@@ -143,7 +143,7 @@ const BottomNav = () => {
               size={24}
               style={[
                 styles.bottomNavIcons,
-                { color: nav == 'Home' ?theme.colors.primaryOpacity : theme.colors.background },
+                { color: nav == 'Home' ? theme.colors.primaryOpacity : theme.colors.background },
               ]}
             />
             {/* {nav !== "Home" && <Text style={[styles.iconText]}>Home</Text>} */}
@@ -155,12 +155,12 @@ const BottomNav = () => {
           <TouchableOpacity
             style={
               // nav == 'Medicine'
-                // ? styles.bottomNavOptionactives
+              // ? styles.bottomNavOptionactives
               styles.bottomNavOptions
             }
             activeOpacity={0.5}
             onPress={() => {
-                navigate('Medicine');
+              navigate('Medicine');
               dispatch(addNavREf("Medicine"));
             }}
             navigationRef>
@@ -169,7 +169,7 @@ const BottomNav = () => {
               size={24}
               style={[
                 styles.bottomNavIcons,
-                { color: nav == 'Medicine' ? theme.colors.primaryOpacity: theme.colors.background },
+                { color: nav == 'Medicine' ? theme.colors.primaryOpacity : theme.colors.background },
               ]}
             />
             {/* {nav !== "Medicine" && <Text style={[styles.iconText]}>Medicine</Text>} */}
@@ -191,12 +191,12 @@ const BottomNav = () => {
 
 
 
-        <View style={[styles.activeBox ]}>
+        <View style={[styles.activeBox]}>
           <TouchableOpacity
             style={
               // nav == 'Upload'
-                 styles.bottomNavOptionactives
-                // : styles.bottomNavOptions
+              styles.bottomNavOptionactives
+              // : styles.bottomNavOptions
             }
             activeOpacity={0.5}
             onPress={() => {
@@ -210,7 +210,7 @@ const BottomNav = () => {
               size={27}
               style={[
                 styles.bottomNavIcons,
-                { color:  'white' },
+                { color: 'white' },
               ]}
             />
             {/* {nav !== "Upload" && <Text style={[styles.iconText]}>Upload</Text>} */}
@@ -226,7 +226,7 @@ const BottomNav = () => {
             style={
               // nav == 'Doctors'
               //   ? styles.bottomNavOptionactives
-                 styles.bottomNavOptions
+              styles.bottomNavOptions
             }
             activeOpacity={0.5}
             onPress={() => {
@@ -252,12 +252,12 @@ const BottomNav = () => {
         <View >
           <TouchableOpacity
             style={
-             
-                 styles.bottomNavOptions
+
+              styles.bottomNavOptions
             }
             activeOpacity={0.5}
             onPress={() => {
-                navigate('Pathalogy');
+              navigate('Pathalogy');
               dispatch(addNavREf("Pathalogy"));
 
             }}
@@ -267,7 +267,7 @@ const BottomNav = () => {
               size={24}
               style={[
                 styles.bottomNavIcons,
-                { color: nav == 'Pathalogy' ? theme.colors.primaryOpacity: theme.colors.background },
+                { color: nav == 'Pathalogy' ? theme.colors.primaryOpacity : theme.colors.background },
               ]}
             />
             {/* {nav !== "Pathalogy" && <Text style={[styles.iconText]}>Pathalogy</Text>} */}

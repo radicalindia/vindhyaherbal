@@ -3,6 +3,7 @@ import { View, StyleSheet, Text, TouchableOpacity } from 'react-native';
 import { Image } from 'react-native';
 import theme from '../utils/theme';
 import { navigate } from '../App';
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 
 
 
@@ -15,7 +16,8 @@ const TopBar = () => {
             <Text style={[styles.text]}>Medical On Wheel</Text>
 
             <TouchableOpacity style={{marginLeft:"auto"}} onPress={handleIconPress}>
-            <Image style={styles.icon} source={require("../assests/images/cartIcon.png")} />
+            <MaterialCommunityIcons name="cart" color={theme.colors.primaryOpacity} size={20}/>
+
             </TouchableOpacity>
 
             <TouchableOpacity onPress={handleIconPress}>
@@ -29,11 +31,11 @@ const TopBar = () => {
 const styles = StyleSheet.create({
     top: {
         width: '100%',
-        height: '5%',
+        height: 40,
         paddingHorizontal: 10,
         paddingTop: 10,
         backgroundColor: "white",
-        // elevation: 10,
+        elevation: 1,
         justifyContent: "space-between",
         flexDirection: 'row',
         // marginRight: 'auto',
@@ -42,15 +44,16 @@ const styles = StyleSheet.create({
         fontSize: 20,
         fontWeight: 'bold',
         // marginBottom: 'auto',
-        color: 'black',
+        color: theme.colors.primaryOpacity,
         // textDecorationLine: "underline",
-        opacity: .8,
+        // opacity: .8,
     },
     icon: {
         width: 20,
         height: 20,
-        marginRight:10,
-        marginLeft: 'auto',
+        borderRadius:10,
+        marginLeft:10,
+        marginRight: 'auto',
     },
 
 })
