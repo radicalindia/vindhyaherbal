@@ -1,18 +1,23 @@
-import { View, Text, TextInput, FlatList, StyleSheet, TouchableOpacity ,Image, ActivityIndicator} from 'react-native'
+import { View, Text, TextInput, FlatList, StyleSheet, TouchableOpacity ,Image, ActivityIndicator, Dimensions} from 'react-native'
 import React ,{useEffect, useState}from 'react'
 import { globalStyles } from '../utils/GlobalStyles'
 import theme from '../utils/theme'
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import { useDispatch, useSelector } from 'react-redux';
 import { getPathology } from '../redux/actions/pathology';
+import { http } from '../utils/AxiosInstance';
 
 
 const Pathology = ({navigation}) => {
-  const [search, setSearch] = useState();
+  // const [search, setSearch] = useState();
   const data = [{ name: "blood test ", value: "345", includes: "5 test" }, { name: "Complete check up ", value: "345", includes: "6 test" }]
   const pathologyList = useSelector((state)=>state.pathology?.data?.response);
-  const [ loading,setLoading]=useState(false)
-  console.log(pathologyList)
+  const [ loading,setLoading]=useState(false);
+  const [searchMed, setSearch] = useState();
+  const [ searchData,setSearchData]=useState();
+  
+
+  // console.log(pathologyList)
   const dispatch = useDispatch()
   useEffect(()=>{
     const fetch=async()=>{
@@ -25,31 +30,97 @@ const Pathology = ({navigation}) => {
      }
      }
     fetch();
-     },[])
+     },[]);
+     useEffect(()=>{
+
+      const fetch=async()=>{
+       try {
+         setLoading(true);
+         const method="searchPathalogy"
+         const search=searchMed
+         if(searchMed &&searchMed.length>2){
+          const {data}= await http.get("/",{params:{
+            method,search
+          }})
+          console.log(data);
+          setSearchData(data?.response)
+         }
+         // await dispatch(getMedicines());
+         setLoading(false)  
+       } catch (error) {
+         console.log(error)
+       }
+       }
+      fetch();
+       },[searchMed]);
+
+       const Renderitem2 = ({ item }) => {
+        return (
+          <View style={[{height:50,flexDirection:"row",marginVertical:10,backgroundColor:"white",elevation:1,marginLeft:2,paddingHorizontal:10}]}>
+          {/* <Image style={{ width: 60, height: 20, marginLeft: 5, marginTop: 5 }} source={require("../assests/images/medical.png")} /> */}
+          {/* <Image style={{ height: 70, }} resizeMode='contain' source={{ uri:item.img }} /> */}
+            <View>
+            <Text style={{ color: "black", fontWeight: "bold", fontSize: 14,}}>{item.testName.substring(0,25)}{item.testName.length>25&&"..."}</Text>
+          
+          <View style={{marginRight: 20, justifyContent: 'space-between', flexDirection: 'row' }}>
+            <View style={{flexDirection:"row"}}>
+              {/* <Text style={{fontSize:14,fontWeight:"bold"}}>₹ {Math.round((85 / 100) *item.mrp)}</Text> */}
+            <Text style={{fontSize:14,fontWeight:"bold"}}>₹ {item.discount}</Text>
+
+              <Text style = {{ textDecorationLine: 'line-through', color: 'red',marginLeft:5,fontSize:13 }}>{item.mrp}</Text>
+            </View>
+          </View>
+            </View>
+           <TouchableOpacity style={{marginLeft:"auto",backgroundColor:"black",justifyContent:"center",alignItems:"center",paddingHorizontal:5,paddingVertical:1,opacity:.7,height:30,borderRadius:5}}><Text style={{color:"white"}}>Add To Cart</Text></TouchableOpacity>
+        </View>
+        );
+      };
  
   const Renderitem = ({ item }) => {
     return (
-      <TouchableOpacity onPress={()=>navigation.navigate("PathalogyDetail",{id:item})} style={[styles.producBox]}>
+      <TouchableOpacity onPress={()=>navigation.navigate("PathalogyDetail",{id:item.packgeId})} style={[styles.producBox]}>
         <Image style={{ width: 90, height: 30, marginLeft: 5, marginTop: 5, marginBottom: 10, }} source={require("../assests/images/medical.png")} />
 
         <Text style={{ color: "black", fontWeight: "bold" }}>{item.packageName}</Text>
         {/* <Text style={{ color: "black", fontWeight: "bold", opacity: .5 }}>{item.discount}</Text> */}
         <View style={{flexDirection:"row"}}>
-          <Text style={{fontSize:14,fontWeight:"bold"}}>₹ {item.packge_price}</Text>
-          <Text style = {{  color: "#1AAB2A",marginLeft:5,fontSize:13,borderWidth:1,borderColor:"#1AAB2A",backgroundColor:"#F3FBF4",paddingHorizontal:15,borderStyle:"dashed" }}>Save ₹ {item.discount}</Text>
+          <Text style={{fontSize:14,fontWeight:"bold"}}>₹ {item.packge_price-item.discount}</Text>
+          <Text style = {{  color: theme.colors.primaryOpacity,textDecorationLine:"line-through",marginLeft:10}}>{item.packge_price}</Text>
         </View>     
          </TouchableOpacity>
     )
   }
   return (
     <View style={[globalStyles.container2]}>
+          <View style={[globalStyles.rowflex, globalStyles.searchBox]}>
+        <MaterialIcons name="search" color="#35383F" size={20} />
+        <TextInput
+          style={{ width: '90%' }}
+          placeholder="Search pathology tests"
+          value={searchMed}
+          onChangeText={(e) => setSearch(e)}
+          placeholderTextColor={'#35383F'}
+        />
+      </View>
       
-      {loading?<ActivityIndicator size={"large"} color={"black"} style={{marginTop:50,marginLeft:"auto",marginRight:"auto"}}/>:<FlatList
+      {loading?<ActivityIndicator size={"large"} color={"black"} style={{marginTop:50,marginLeft:"auto",marginRight:"auto"}}/>:
+        (!searchMed?<FlatList
         data={pathologyList}
         renderItem={Renderitem}
         keyExtractor={(_, index) => index.toString()}
         numColumns={2}
-      />}
+      />:
+      <View style={{flex:1,backgroundColor:"white",height:Dimensions.get("window").height,width:Dimensions.get("window").width-20}}>
+         <FlatList
+        data={searchData}
+        // contentContainerStyle={{paddingBottom:150}}
+        renderItem={Renderitem2}
+        keyExtractor={(_, index) => index.toString()}
+        // numColumns={2}
+      />
+      </View>
+      )}
+      
 
     </View>
   )

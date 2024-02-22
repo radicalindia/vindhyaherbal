@@ -64,6 +64,8 @@ import {
   TouchableOpacity,
   TextInput,
   ActivityIndicator,
+  Modal,
+  Dimensions,
 } from 'react-native';
 import React, { useEffect, useState } from 'react';
 import {globalStyles} from '../utils/GlobalStyles';
@@ -71,14 +73,18 @@ import theme from '../utils/theme';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import { useDispatch, useSelector } from 'react-redux';
 import { getMedicines } from '../redux/actions/medicine';
+import { http } from '../utils/AxiosInstance';
 
 
 const Pathology = () => {
-    const [search, setSearch] = useState();
+    const [searchMed, setSearch] = useState();
     const medicines = useSelector(({medicine})=>medicine?.data?.response);
+    const [medicineSearchesData ,setMedicinessearchesData]=useState()
+    // console.log(medi)
     // console.log(medicines);
     const [laoding,setLoading]=useState(false);
-    const dispatch=useDispatch()
+    const dispatch=useDispatch();
+    const [ modalVisible,setModalVisible]=useState(false)
   
     useEffect(()=>{
    const fetch=async()=>{
@@ -92,6 +98,30 @@ const Pathology = () => {
     }
    fetch();
     },[])
+
+    useEffect(()=>{
+
+      const fetch=async()=>{
+       try {
+         setLoading(true);
+         const method="searchMedicine"
+         const search=searchMed
+         if(searchMed &&searchMed.length>2){
+          const {data}= await http.get("/",{params:{
+            method,search
+          }})
+          console.log(data);
+          setMedicinessearchesData(data?.response)
+         }
+         // await dispatch(getMedicines());
+         setLoading(false)  
+       } catch (error) {
+         console.log(error)
+       }
+       }
+      fetch();
+       },[searchMed])
+
 
   const data = [
     { name: 'blood test ', value: '345', includes: '5 test' },
@@ -112,9 +142,27 @@ const Pathology = () => {
           <Text style={{fontSize:14,fontWeight:"bold"}}>₹ {item.offerPrice}</Text>
           <Text style = {{ textDecorationLine: 'line-through', color: 'red',marginLeft:5,fontSize:13 }}>{item.mrp}</Text>
         </View>
-        {/* <Text>100gm</Text> */}
       </View>
 
+    </View>
+    );
+  };
+  const Renderitem2 = ({ item }) => {
+    return (
+      <View style={[{height:40,flexDirection:"row",marginVertical:10,backgroundColor:"white",elevation:1,marginLeft:2,paddingHorizontal:10}]}>
+      {/* <Image style={{ width: 60, height: 20, marginLeft: 5, marginTop: 5 }} source={require("../assests/images/medical.png")} /> */}
+      {/* <Image style={{ height: 70, }} resizeMode='contain' source={{ uri:item.img }} /> */}
+        <View>
+        <Text style={{ color: "black", fontWeight: "bold", textAlign: "center", fontSize: 14 }}>{item.medicineName}</Text>
+      
+      <View style={{ marginLeft: 10, marginRight: 20, justifyContent: 'space-between', flexDirection: 'row' }}>
+        <View style={{flexDirection:"row"}}>
+          <Text style={{fontSize:14,fontWeight:"bold"}}>₹ {Math.round((85 / 100) *item.mrp)}</Text>
+          <Text style = {{ textDecorationLine: 'line-through', color: 'red',marginLeft:5,fontSize:13 }}>{item.mrp}</Text>
+        </View>
+      </View>
+        </View>
+       <TouchableOpacity style={{marginLeft:"auto",backgroundColor:"black",justifyContent:"center",alignItems:"center",paddingHorizontal:5,paddingVertical:1,opacity:.7,height:30,borderRadius:5}}><Text style={{color:"white"}}>Add To Cart</Text></TouchableOpacity>
     </View>
     );
   };
@@ -125,17 +173,32 @@ const Pathology = () => {
         <TextInput
           style={{ width: '90%' }}
           placeholder="Search Medicine"
-          value={search}
+          value={searchMed}
           onChangeText={(e) => setSearch(e)}
           placeholderTextColor={'#35383F'}
         />
       </View>
-        {laoding?<ActivityIndicator size={"large"} color={"black"} style={{marginTop:50,marginLeft:"auto",marginRight:"auto"}}/>:<FlatList
+        
+        {laoding?<ActivityIndicator size={"large"} color={"black"} style={{marginTop:50,marginLeft:"auto",marginRight:"auto"}}/>:
+        (!searchMed?<FlatList
         data={medicines}
         renderItem={Renderitem}
         keyExtractor={(_, index) => index.toString()}
         numColumns={2}
-      />}
+      />:
+      <View style={{flex:1,backgroundColor:"white",height:Dimensions.get("window").height,position:"absolute",marginTop:100,width:Dimensions.get("window").width}}>
+         <FlatList
+        data={medicineSearchesData}
+        contentContainerStyle={{paddingBottom:150}}
+        renderItem={Renderitem2}
+        keyExtractor={(_, index) => index.toString()}
+        // numColumns={2}
+      />
+      </View>
+      )}
+  
+
+      
     </View>
   );
 };
