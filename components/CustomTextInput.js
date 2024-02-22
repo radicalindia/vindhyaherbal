@@ -9,6 +9,7 @@ export const CustomTextInput = ({
   setValue,
   placeholder,
   marginTop,
+  numeric
 }) => {
   return (
     <View style={{marginTop: marginTop}}>
@@ -19,6 +20,7 @@ export const CustomTextInput = ({
         value={value}
         placeholder={placeholder}
         onChangeText={e => setValue(e)}
+        keyboardType={numeric}
         style={{
           width: '100%',
         //   borderRadius: 5,

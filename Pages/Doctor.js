@@ -5,6 +5,7 @@ import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import { useDispatch, useSelector } from 'react-redux';
 import { getDoctorsCategory } from '../redux/actions/doctors';
 import Svg, { Image as SvgImage } from 'react-native-svg';
+import SvgUri from 'react-native-svg-uri';
 
 const Doctor = ({navigation}) => {
   const [search, setSearch] = useState();
@@ -32,8 +33,12 @@ const Doctor = ({navigation}) => {
   const RenderItem = ({ item, index }) => {
     return (
       <TouchableOpacity onPress={()=>{navigation.navigate("DocterData",{id:item.categoryId})}} style={[styles.renderItemBox]}>
-        <Image source={{uri:"https://www.medicalonwheel.com/images/icon/IconImage_758.svg"}} style={{height:60,width:60}}/>
-        <Text style={{ color: "black" }}>{item.name}</Text>
+    <SvgUri
+      width="60"
+      height="60"
+      source={{uri:item?.icon?.toString()?.substring(0,8)+"www."+item?.icon?.toString()?.substring(8,38)+"/"+item?.icon?.toString()?.substring(38)}}
+    />
+            <Text style={{ color: "black" }}>{item?.name}</Text>
       </TouchableOpacity>
     )
   }
@@ -54,7 +59,7 @@ const Doctor = ({navigation}) => {
         data={doctorCategory}
         renderItem={RenderItem}
         numColumns={2}
-        keyExtractor={item => item._id}
+        keyExtractor={item=>item.name.toString()}
         contentContainerStyle={{ paddingBottom: 60, marginTop: 20 }}
       />
     </View>

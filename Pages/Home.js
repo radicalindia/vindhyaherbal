@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, StyleSheet, ScrollView, TouchableOpacity, TextInput, FlatList, Image, ActivityIndicator, } from 'react-native';
+import { View, Text, StyleSheet, ScrollView, TouchableOpacity, TextInput, FlatList, Image, ActivityIndicator, Dimensions, } from 'react-native';
 // Adjust the import path based on your project structure
 import HorizontalPhotoScrollView2 from '../components/Carosoul';
 import { globalStyles } from '../utils/GlobalStyles';
@@ -49,9 +49,9 @@ const YourComponent = () => {
   };
   return (
 
-
-
-    <ScrollView contentContainerStyle={[{paddingBottom:70,paddingHorizontal:10,backgroundColor:"white"}]}>
+   <View style={{flex:1,backgroundColor:"white",}}>
+    
+    <ScrollView contentContainerStyle={[{paddingBottom:70,paddingHorizontal:10,}]}>
 
 
 
@@ -124,6 +124,8 @@ const YourComponent = () => {
 
       </ScrollView>
     </ScrollView>
+   </View>
+
   );
 };
 

@@ -19,6 +19,7 @@ import TopBar from './components/TopBar';
 import Profile from './Pages/Profile';
 import Pathology from './Pages/Pathology';
 import Medicine from './Pages/Medicine';
+import PathologyDetail from './Pages/PathologyDetail';
 
 // const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
@@ -29,6 +30,9 @@ export function navigate(name, params) {
 }
 const App = () => {
   const [currentroute, setCurrentroute] = useState();
+
+  const nav = useSelector(({ nav }) => nav?.nav);
+  console.log(nav)
 
   const getUserType = async () => {
     return await AsyncStorage.getItem('userType');
@@ -42,26 +46,18 @@ const App = () => {
 
 
   const NavbarAbsentScreens = [
-    'RegisterMine',
-    // 'LoginMine',
-    'RegisterCompany',
-    'LoginCompnay',
-    'ChooseUser',
-    'Splash',
-    'RegisterDriver',
-    "GetMobileOtp",
-    "Intro",
+
     // "RegisterMineUser"
   ];
   const NavbarAbsentScreensBottom = [
-    // "CreateAccount",
+    "CreateAccount",
     "Login"
   ];
 
 
 
   const dispactch = useDispatch();
-  dispactch(addNavREf('Home'));
+  // dispactch(addNavREf('CreateAccount'));
 
 
   useEffect(() => {
@@ -70,21 +66,21 @@ const App = () => {
 
   useEffect(() => {
     const unsubscribe = navigationRef.current.addListener('focus', () => {
-      // The screen is focused
-      console.log('Screen is focused');
+      setCurrentroute(navigationRef.current?.getCurrentRoute()?.name);
+
     });
 
     // Clean up the listener when the component unmounts
     return unsubscribe;
-  }, []);
+  }, [navigationRef]);
 
   return (
     <>
       <NavigationContainer ref={navigationRef}>
         {/* {!NavbarAbsentScreens.includes(currentroute) && ((getUserType=="mine"||getUserType=="truckOwner")&&<AppBar />)} */}
-        {/* {!NavbarAbsentScreens.includes(currentroute) &&<AppBar/>} */}
-        <TopBar />
-        <Stack.Navigator initialRouteName="Home">
+        {!NavbarAbsentScreensBottom.includes(currentroute) && <TopBar/>}
+        {/* <TopBar /> */}
+        <Stack.Navigator initialRouteName="CreateAccount">
           <Stack.Screen
             name="Home"
             component={Home}
@@ -116,6 +112,11 @@ const App = () => {
             options={{ title: 'Welcome', headerShown: false }}
           />
           <Stack.Screen
+            name="PathalogyDetail"
+            component={PathologyDetail}
+            options={{ title: 'Welcome', headerShown: false }}
+          />
+          <Stack.Screen
             name="Upload"
             component={Upload}
             options={{ title: 'Welcome', headerShown: false }}
@@ -134,7 +135,7 @@ const App = () => {
           {/* <Stack.Screen name="Profile" component={ProfileScreen} /> */}
         </Stack.Navigator>
         {/* {!NavbarAbsentScreens.includes(currentroute) && (getUserType=="mine"?<BottomNav />:getUserType=="mineOwner"?<TruckOwner/>:<DriverBottomNav/>)} */}
-        {!NavbarAbsentScreensBottom.includes(navigationRef.current?.getCurrentRoute()?.name) && <BottomNav />}
+        {!NavbarAbsentScreensBottom.includes(currentroute) && <BottomNav />}
       </NavigationContainer>
       {/* <CurvedBottomBars/> */}
     </>
