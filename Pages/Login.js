@@ -1,37 +1,53 @@
-import { View, Text, StyleSheet, TouchableOpacity, Image } from 'react-native'
+import { View, Text, StyleSheet, TouchableOpacity, Image, ScrollView, Alert } from 'react-native'
 import React, { useState } from 'react'
 import { globalStyles } from '../utils/GlobalStyles'
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import { CustomTextInput } from '../components/CustomTextInput';
 import { CustomButton } from '../components/CustomButton';
 import theme from '../utils/theme';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import axios from 'axios';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { navigate } from '../App';
+import { addNavREf } from '../redux/actions/navigationREf';
+import { http } from '../utils/AxiosInstance';
 
 
-const Login = () => {
+const Login = ({navigation}) => {
     const [name, setName] = useState();
-    const [email, setEmail] = useState();
-    const [password, setPassword] = useState();
+    const [email, setEmail] = useState('ashu@gmail.com');
+    const [password, setPassword] = useState('123456');
+    const dispactch=useDispatch()
 
     const login = async () => {
-        axios.get('https://medicalonwheel.com/appapi/activity.php', {
-            params: {
-                method: 'login',
-                email: 'ashu@gmail.com',
-                password: '123456'
-            }
-        })
-            .then(response => {
-                console.log('Response:', response.data);
-            })
-            .catch(error => {
-                console.error('Error:', error);
-            });
+
+        try {
+            const response=  await  http.get('/', {
+                params: {
+                    method: 'login',
+                    email: email?.trim(),
+                    password: password?.trim()
+                }
+            }) 
+            console.log('Response:', response.data?.response);
+              if(response?.data?.response?.userId){
+                AsyncStorage.setItem("user",JSON.stringify(response.data?.response));
+                await dispactch(addNavREf("Home"))
+                navigation.replace("Home");
+              }
+              else{
+                Alert.alert("Invalid Credentials")
+
+              }
+        } catch (error) {
+             console.log(error)   
+        }
+        
+
     }
 
     return (
-        <View style={[globalStyles.container]}>
+        <ScrollView contentContainerStyle={{padding:15,backgroundColor:"white"}}>
             <Text style={[globalStyles.text, { fontSize: 22, marginTop: 70 }]}>Welcome Back!</Text>
             <Text style={[globalStyles.text2]}>Sign in to continue</Text>
             <View style={[globalStyles.rowflex, { marginTop: 50 }]}>
@@ -57,7 +73,7 @@ const Login = () => {
                 setValue={setEmail}
                 placeholder={"Enter Your Email id"}
                 marginTop={"45%"}
-            />
+            />  
             <CustomTextInput
                 label={"Password"}
                 value={password}
@@ -66,14 +82,14 @@ const Login = () => {
                 marginTop={"5%"}
             />
             <TouchableOpacity style={{ marginLeft: "auto", marginTop: 20 }}><Text style={{ color: theme.colors.primaryOpacity }}>Forgot Password?</Text></TouchableOpacity>
-            <CustomButton text={"Sign In"} marginTop={"20%"} />
+            <CustomButton onPressfuntion={()=>login()} text={"Sign In"} marginTop={"20%"} />
             <View style={{ flexDirection: "row", justifyContent: "center", marginTop: 20 }}>
                 <Text style={[styles.text2]}>Don't have an account ? </Text>
-                <TouchableOpacity>
+                <TouchableOpacity onPress={()=>navigation.navigate("CreateAccount")}>
                     <Text style={{ color: theme.colors.primaryOpacity, fontWeight: "bold" }}> Register now</Text>
                 </TouchableOpacity>
             </View>
-        </View>
+        </ScrollView>
     )
 }
 

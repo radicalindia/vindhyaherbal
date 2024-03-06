@@ -1,13 +1,14 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { http } from "../../utiles/AxiosInstance";
-import { retrieveUser } from "../../utiles/authStorage";
+// import { retrieveUser } from "../../utiles/authStorage";
 
 export const retrireveUserFromLocal = (body) => async (dispatch) => {
     try {
-        const data = await retrieveUser()
+        const data = await AsyncStorage.getItem("user")
+        
       dispatch({
         type: "GET_USER",
-        payload: data,
+        payload: JSON.parse(data),
       });
     } catch (error) {
       dispatch({

@@ -2,7 +2,7 @@ import axios from "axios";
 // import { retrieveSubdomain, retrieveToken } from "./authStorage";
 
 
-const prodUrl = `https://medicalonwheel.com/appapi/activity.php`;
+const prodUrl = `https://www.medicalonwheel.com/appapi/activity.php`;
 
 export const http = axios.create({
   baseURL: prodUrl,

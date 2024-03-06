@@ -66,6 +66,7 @@ import {
   ActivityIndicator,
   Modal,
   Dimensions,
+  Alert,
 } from 'react-native';
 import React, { useEffect, useState } from 'react';
 import {globalStyles} from '../utils/GlobalStyles';
@@ -74,23 +75,32 @@ import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import { useDispatch, useSelector } from 'react-redux';
 import { getMedicines } from '../redux/actions/medicine';
 import { http } from '../utils/AxiosInstance';
+import { getCarts } from '../redux/actions/cart';
 
 
-const Pathology = () => {
+const Medicine = ({navigation}) => {
     const [searchMed, setSearch] = useState();
     const medicines = useSelector(({medicine})=>medicine?.data?.response);
-    const [medicineSearchesData ,setMedicinessearchesData]=useState()
+    const [medicineSearchesData ,setMedicinessearchesData]=useState();
+    const user = useSelector(({user})=>user?.data)
+    const cart = useSelector(({cart})=>cart?.data)
+    console.log("cart",cart)
+
+
+
+
     // console.log(medi)
     // console.log(medicines);
     const [laoding,setLoading]=useState(false);
     const dispatch=useDispatch();
-    const [ modalVisible,setModalVisible]=useState(false)
+    const [ modalVisible,setModalVisible]=useState(false);
+    const [ loadingId,setLoadingId]=useState()
   
     useEffect(()=>{
    const fetch=async()=>{
     try {
       setLoading(true);
-      // await dispatch(getMedicines());
+      await dispatch(getMedicines());
       setLoading(false)  
     } catch (error) {
       console.log(error)
@@ -98,6 +108,30 @@ const Pathology = () => {
     }
    fetch();
     },[])
+
+    const addtoCart=async(item)=>{
+    try {
+      const method="addtocart"
+      const userId=user?.userId
+      const type="medicine"
+      console.log(item)
+
+      const {data} = await http.get('/',{  params: {
+        method,
+        type,
+        userId,
+        productId:item?.medicineId,
+        price:item?.mrp,
+        qty:1
+
+      },});
+      console.log(data);
+      dispatch(getCarts())
+      Alert.alert("Product added to the cart")
+    } catch (error) {
+      console.log(error)
+    }
+    }
 
     useEffect(()=>{
 
@@ -110,8 +144,9 @@ const Pathology = () => {
           const {data}= await http.get("/",{params:{
             method,search
           }})
-          console.log(data);
+          // console.log(data);
           setMedicinessearchesData(data?.response)
+
          }
          // await dispatch(getMedicines());
          setLoading(false)  
@@ -132,7 +167,7 @@ const Pathology = () => {
 
   const Renderitem = ({ item }) => {
     return (
-      <View style={[styles.producBo]}>
+      <TouchableOpacity onPress={()=>navigation.navigate("MedicineIndex",{item:item})} style={[styles.producBo]}>
       {/* <Image style={{ width: 60, height: 20, marginLeft: 5, marginTop: 5 }} source={require("../assests/images/medical.png")} /> */}
       <Image style={{ height: 70, }} resizeMode='contain' source={{ uri:item.img }} />
       <Text style={{ color: "black", fontWeight: "bold", textAlign: "center", fontSize: 12 }}>{item.productName.substring(0,60)}</Text>
@@ -144,7 +179,7 @@ const Pathology = () => {
         </View>
       </View>
 
-    </View>
+    </TouchableOpacity>
     );
   };
   const Renderitem2 = ({ item }) => {
@@ -162,7 +197,7 @@ const Pathology = () => {
         </View>
       </View>
         </View>
-       <TouchableOpacity style={{marginLeft:"auto",backgroundColor:"black",justifyContent:"center",alignItems:"center",paddingHorizontal:5,paddingVertical:1,opacity:.7,height:30,borderRadius:5}}><Text style={{color:"white"}}>Add To Cart</Text></TouchableOpacity>
+       <TouchableOpacity onPress={()=>addtoCart(item,)} style={{marginLeft:"auto",backgroundColor:"black",justifyContent:"center",alignItems:"center",paddingHorizontal:5,paddingVertical:1,opacity:.7,height:30,borderRadius:5}}><Text style={{color:"white"}}>Add To Cart</Text></TouchableOpacity>
     </View>
     );
   };
@@ -220,5 +255,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Pathology;
-
+export default Medicine;

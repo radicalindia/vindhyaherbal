@@ -20,6 +20,9 @@ import Profile from './Pages/Profile';
 import Pathology from './Pages/Pathology';
 import Medicine from './Pages/Medicine';
 import PathologyDetail from './Pages/PathologyDetail';
+import CartProducts from './Pages/Cart';
+import Address from './Pages/Address';
+import MedicineIndex from './Pages/MedicineIndex';
 
 // const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
@@ -80,7 +83,7 @@ const App = () => {
         {/* {!NavbarAbsentScreens.includes(currentroute) && ((getUserType=="mine"||getUserType=="truckOwner")&&<AppBar />)} */}
         {!NavbarAbsentScreensBottom.includes(currentroute) && <TopBar/>}
         {/* <TopBar /> */}
-        <Stack.Navigator initialRouteName="CreateAccount">
+        <Stack.Navigator initialRouteName="Login">
           <Stack.Screen
             name="Home"
             component={Home}
@@ -94,6 +97,16 @@ const App = () => {
           <Stack.Screen
             name="Login"
             component={Login}
+            options={{ title: 'Welcome', headerShown: false }}
+          /> 
+          <Stack.Screen
+          name="Address"
+          component={Address}
+          options={{ title: 'Welcome', headerShown: false }}
+        />
+          <Stack.Screen
+            name="Cart"
+            component={CartProducts}
             options={{ title: 'Welcome', headerShown: false }}
           />
           <Stack.Screen
@@ -129,6 +142,11 @@ const App = () => {
           <Stack.Screen
             name="Medicine"
             component={Medicine}
+            options={{ title: 'Welcome', headerShown: false }}
+          />
+           <Stack.Screen
+            name="MedicineIndex"
+            component={MedicineIndex}
             options={{ title: 'Welcome', headerShown: false }}
           />
 

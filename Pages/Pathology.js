@@ -1,4 +1,4 @@
-import { View, Text, TextInput, FlatList, StyleSheet, TouchableOpacity ,Image, ActivityIndicator, Dimensions} from 'react-native'
+import { View, Text, TextInput, FlatList, StyleSheet, TouchableOpacity ,Image, ActivityIndicator, Dimensions, Alert} from 'react-native'
 import React ,{useEffect, useState}from 'react'
 import { globalStyles } from '../utils/GlobalStyles'
 import theme from '../utils/theme'
@@ -15,7 +15,8 @@ const Pathology = ({navigation}) => {
   const [ loading,setLoading]=useState(false);
   const [searchMed, setSearch] = useState();
   const [ searchData,setSearchData]=useState();
-  
+  const user = useSelector(({user})=>user?.data)
+
 
   // console.log(pathologyList)
   const dispatch = useDispatch()
@@ -31,6 +32,29 @@ const Pathology = ({navigation}) => {
      }
     fetch();
      },[]);
+
+     const addtoCart=async(item)=>{
+      try {
+        const method="addtocart"
+        const userId=user?.userId
+        const type="pathology"
+        console.log(item?.testId);
+  
+        const {data} = await http.get('/',{  params: {
+          method,
+          type,
+          userId,
+          productId:item?.testId,
+          price:item?.discount,
+          qty:1
+  
+        },});
+        console.log(data);
+        Alert.alert("Product added to the cart")
+      } catch (error) {
+        console.log(error)
+      }
+      }
      useEffect(()=>{
 
       const fetch=async()=>{
@@ -71,14 +95,14 @@ const Pathology = ({navigation}) => {
             </View>
           </View>
             </View>
-           <TouchableOpacity style={{marginLeft:"auto",backgroundColor:"black",justifyContent:"center",alignItems:"center",paddingHorizontal:5,paddingVertical:1,opacity:.7,height:30,borderRadius:5}}><Text style={{color:"white"}}>Add To Cart</Text></TouchableOpacity>
+           <TouchableOpacity onPress={()=>addtoCart(item)} style={{marginLeft:"auto",backgroundColor:"black",justifyContent:"center",alignItems:"center",paddingHorizontal:5,paddingVertical:1,opacity:.7,height:30,borderRadius:5}}><Text style={{color:"white"}}>Add To Cart</Text></TouchableOpacity>
         </View>
         );
       };
  
   const Renderitem = ({ item }) => {
     return (
-      <TouchableOpacity onPress={()=>navigation.navigate("PathalogyDetail",{id:item.packgeId})} style={[styles.producBox]}>
+      <TouchableOpacity onPress={()=>navigation.navigate("PathalogyDetail",{id:item})} style={[styles.producBox]}>
         <Image style={{ width: 90, height: 30, marginLeft: 5, marginTop: 5, marginBottom: 10, }} source={require("../assests/images/medical.png")} />
 
         <Text style={{ color: "black", fontWeight: "bold" }}>{item.packageName}</Text>

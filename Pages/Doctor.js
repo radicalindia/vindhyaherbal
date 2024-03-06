@@ -10,7 +10,7 @@ import SvgUri from 'react-native-svg-uri';
 const Doctor = ({navigation}) => {
   const [search, setSearch] = useState();
   const doctorCategory = useSelector(({doctors})=>doctors?.category?.response);
-  console.log(doctorCategory);
+  // console.log(doctorCategory);
   const [laoding,setLoading]=useState(false);
   const dispatch=useDispatch()
 

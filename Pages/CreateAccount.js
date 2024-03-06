@@ -1,4 +1,4 @@
-import { View, Text, StyleSheet, TouchableOpacity, Image, ScrollView, ActivityIndicator } from 'react-native'
+import { View, Text, StyleSheet, TouchableOpacity, Image, ScrollView, ActivityIndicator, Alert } from 'react-native'
 import React, { useState } from 'react'
 import { globalStyles } from '../utils/GlobalStyles'
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
@@ -28,35 +28,37 @@ const CreateAccount = () => {
 
     const createAccount = async() => {
 
-        // const body={
-        //     method: 'register',
-        //     name: name,
-        //     age: 20,
-        //     gender: gender,
-        //     phone: '9575345162',
-        //     email: 'sourabh',
-        //     password: '123456'
-        // }
-        // setLoading(true)
-        // axios.get('https://medicalonwheel.com/appapi/activity.php', {
-        //     params: {
-        //     ...body
-        //     }
-        // })
-        //     .then(response => {
-        //         console.log('Response:', response.data);
-        //         setLoading(false)
-        //         AsyncStorage.setItem("user",JSON.stringify(body));
-        //         navigate("Home");
-        //         addNavREf("Home")
+        const body={
+            method: 'register',
+            name: name?.trim(),
+            age: age?.trim(),
+            gender: gender,
+            phone: phone?.trim(),
+            email: email?.trim(),
+            password:password?.trim()
+        }
+        setLoading(true)
+        axios.get('https://medicalonwheel.com/appapi/activity.php', {
+            params: {
+            ...body
+            }
+        })
+            .then(response => {
+                console.log('Response:', response.data);
+                setLoading(false)
+                if(response?.data?.response?.userId){
+                    AsyncStorage.setItem("user",JSON.stringify(response.data));
+                    dispactch(addNavREf("Home"))
+                    navigation.replace("Home");
+                  }
+                  Alert.alert("Invalid Credentials")
 
-        //     })
-        //     .catch(error => {
-        //         console.error('Error:', error);
-        //         setLoading(false)
-        //     });
-        await dispatch(addNavREf("Home"))
-        navigation.replace("Home");
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                setLoading(false)
+            });
+    
         
     }
 
@@ -125,7 +127,9 @@ const CreateAccount = () => {
                     }
             <View style={{ flexDirection: "row", justifyContent: "center", marginTop: 20 }}>
                 <Text style={[styles.text2]}>Already have an account ? </Text>
+                <TouchableOpacity onPress={()=>navigation.navigate("Login")}>
                 <Text style={{ color: theme.colors.primaryOpacity, fontWeight: "bold" }}> Log in now</Text>
+                </TouchableOpacity>
             </View>
         </ScrollView>
     )

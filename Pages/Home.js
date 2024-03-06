@@ -7,13 +7,14 @@ import theme from '../utils/theme';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import { useDispatch, useSelector } from 'react-redux';
 import { getMedicines } from '../redux/actions/medicine';
+import { getCarts } from '../redux/actions/cart';
 
 
 
 const YourComponent = () => {
   const [search, setSearch] = useState();
   const medicines = useSelector(({medicine})=>medicine?.data?.response?.slice(0,4));
-  console.log(medicines);
+  // console.log("med",medicines);
   const [laoding,setLoading]=useState(false);
   const dispatch=useDispatch()
 
@@ -22,6 +23,7 @@ const YourComponent = () => {
   try {
     setLoading(true);
     await dispatch(getMedicines());
+     dispatch(getCarts())
     setLoading(false)  
   } catch (error) {
     console.log(error)

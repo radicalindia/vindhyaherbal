@@ -11,7 +11,7 @@ import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 const DocterData = ({route}) => {
     const id = route?.params?.id
     const doctorsList = useSelector(({doctors})=>doctors?.data?.response);
-    console.log(doctorsList);
+    // console.log(doctorsList);
     const [ search,setSearch]=useState();
 
     const [laoding,setLoading]=useState(false);

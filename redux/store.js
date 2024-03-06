@@ -4,6 +4,7 @@ import Navigation from './reducers/NavigatorRef';
 import doctors from './reducers/doctors';
 import medicine from './reducers/medicine';
 import pathology from './reducers/pathology';
+import Cart from './reducers/cart';
 
 
 
@@ -12,7 +13,8 @@ const reducer={
     nav:Navigation,
     doctors:doctors,
     medicine:medicine,
-    pathology:pathology
+    pathology:pathology,
+    cart:Cart
 
 }
 export const store = configureStore({

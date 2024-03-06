@@ -7,7 +7,7 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 
 
 
-const TopBar = () => {
+const TopBar = ({navigation}) => {
     const handleIconPress = () => {
         navigate('Profile');
     }
@@ -15,7 +15,7 @@ const TopBar = () => {
         <View style={[styles.top]}>
             <Text style={[styles.text]}>Medical On Wheel</Text>
 
-            <TouchableOpacity style={{marginLeft:"auto"}} onPress={handleIconPress}>
+            <TouchableOpacity style={{marginLeft:"auto"}} onPress={()=>navigate("Cart")}>
             <MaterialCommunityIcons name="cart" color={theme.colors.primaryOpacity} size={20}/>
 
             </TouchableOpacity>
