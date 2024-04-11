@@ -38,18 +38,29 @@ const styles = StyleSheet.create({
 
   bottomNavOptions: {
     alignItems: 'center',
-    width: 60,
-    height: 50,
+    width: 40,
+    height: 40,
     backgroundColor: theme.colors.white,
     justifyContent: 'center',
     alignItems: 'center',
     borderRadius: 30,
   },
+  bottomNavOptionactives2: {
+    alignItems: 'center',
+    width: 40,
+    height: 40,
+    backgroundColor: theme.colors.white,
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: 30,
+    elevation: 1,
+  
+  },
   bottomNavOptionactives: {
     alignItems: 'center',
     width: 50,
     height: 50,
-    backgroundColor: theme.colors.primaryOpacity,
+    backgroundColor: theme.colors.primary,
     justifyContent: 'center',
     alignItems: 'center',
     borderRadius: 30,
@@ -61,7 +72,7 @@ const styles = StyleSheet.create({
     marginLeft: -10,
   },
   bottomNavIcons: {
-    color: theme.colors.background,
+    color: theme.colors.bg,
   },
   bottomNavText: {
     color: theme.colors.secondaryDark,
@@ -99,13 +110,13 @@ const styles = StyleSheet.create({
     opacity: 0.8,
   },
   activeBox: {
-    backgroundColor: 'white',
+    backgroundColor: theme.colors.bg,
     borderRadius: 30,
     height: 60,
     width: 60,
     justifyContent: 'center',
     alignItems: 'center',
-    marginTop: -15,
+    marginTop: -3,
   },
 });
 
@@ -127,9 +138,11 @@ const BottomNav = () => {
   return (
     <View style={styles.bottomNavContainer}>
       <View style={styles.bottomNav}>
-        <View >
+      <View >
           <TouchableOpacity
             style={
+              nav == 'Home'
+              ? styles.bottomNavOptionactives2:
               styles.bottomNavOptions
             }
             activeOpacity={0.5}
@@ -138,38 +151,12 @@ const BottomNav = () => {
               dispatch(addNavREf("Home"));
             }}
             navigationRef>
-            <MaterialCommunityIcons
-              name="home"
+            <MaterialIcons
+              name="feed"
               size={24}
               style={[
                 styles.bottomNavIcons,
-                { color: nav == 'Home' ? theme.colors.primaryOpacity : theme.colors.background },
-              ]}
-            />
-            {/* {nav !== "Home" && <Text style={[styles.iconText]}>Home</Text>} */}
-            {/* <Text style={styles.bottomNavText}>Extras</Text> */}
-          </TouchableOpacity>
-        </View>
-
-        <View >
-          <TouchableOpacity
-            style={
-              // nav == 'Medicine'
-              // ? styles.bottomNavOptionactives
-              styles.bottomNavOptions
-            }
-            activeOpacity={0.5}
-            onPress={() => {
-              navigate('Medicine');
-              dispatch(addNavREf("Medicine"));
-            }}
-            navigationRef>
-            <FontAwesome
-              name="first-aid"
-              size={24}
-              style={[
-                styles.bottomNavIcons,
-                { color: nav == 'Medicine' ? theme.colors.primaryOpacity : theme.colors.background },
+                { color: nav == 'Home' ? theme.colors.primary : theme.colors.primaryOpacity },
               ]}
             />
             {/* {nav !== "Medicine" && <Text style={[styles.iconText]}>Medicine</Text>} */}
@@ -177,6 +164,10 @@ const BottomNav = () => {
             {/* <Text style={styles.bottomNavText}>Extras</Text> */}
           </TouchableOpacity>
         </View>
+
+
+
+        
 
         {/* <TouchableOpacity onPress={() => navigation.navigate("MineJobCreation")}>
                 navigationRef          <Text style={styles.dcrText}>Daily Call Report</Text>
@@ -191,56 +182,30 @@ const BottomNav = () => {
 
 
 
-        <View style={[styles.activeBox]}>
-          <TouchableOpacity
-            style={
-              // nav == 'Upload'
-              styles.bottomNavOptionactives
-              // : styles.bottomNavOptions
-            }
-            activeOpacity={0.5}
-            onPress={() => {
-              navigate('Upload');
-              dispatch(addNavREf("Upload"));
 
-            }}
-            navigationRef>
-            <MaterialCommunityIcons
-              name="plus-thick"
-              size={27}
-              style={[
-                styles.bottomNavIcons,
-                { color: 'white' },
-              ]}
-            />
-            {/* {nav !== "Upload" && <Text style={[styles.iconText]}>Upload</Text>} */}
-
-            {/* <Text style={styles.bottomNavText}>Extras</Text> */}
-          </TouchableOpacity>
-        </View>
 
 
 
         <View >
           <TouchableOpacity
             style={
-              // nav == 'Doctors'
-              //   ? styles.bottomNavOptionactives
+              nav == 'CHATS'
+                ? styles.bottomNavOptionactives2:
               styles.bottomNavOptions
             }
             activeOpacity={0.5}
             onPress={() => {
-              navigate('Doctor');
-              dispatch(addNavREf("Doctors"));
+              navigate('Inbox');
+              dispatch(addNavREf("CHATS"));
 
             }}
             navigationRef>
             <MaterialCommunityIcons
-              name="doctor"
+              name="earth"
               size={24}
               style={[
                 styles.bottomNavIcons,
-                { color: nav == 'Doctors' ? theme.colors.primaryOpacity : theme.colors.background },
+                { color: nav == 'CHATS' ? theme.colors.primary : theme.colors.primaryOpacity },
               ]}
             />
             {/* {nav !== "Doctors" && <Text style={[styles.iconText]}>Doctors</Text>} */}
@@ -252,26 +217,24 @@ const BottomNav = () => {
         <View >
           <TouchableOpacity
             style={
-
+              nav=="Profile"?styles.bottomNavOptionactives2:
               styles.bottomNavOptions
             }
             activeOpacity={0.5}
             onPress={() => {
-              navigate('Pathalogy');
-              dispatch(addNavREf("Pathalogy"));
-
+              navigate('Profile');
+              dispatch(addNavREf("Profile"));
             }}
             navigationRef>
-            <Fontist
-              name="test-bottle"
+            <FontAwesome
+              name="user-circle"
               size={24}
               style={[
                 styles.bottomNavIcons,
-                { color: nav == 'Pathalogy' ? theme.colors.primaryOpacity : theme.colors.background },
+                { color: nav == 'Profile' ? theme.colors.primary : theme.colors.primaryOpacity },
               ]}
             />
-            {/* {nav !== "Pathalogy" && <Text style={[styles.iconText]}>Pathalogy</Text>} */}
-
+            {/* {nav !== "Home" && <Text style={[styles.iconText]}>Home</Text>} */}
             {/* <Text style={styles.bottomNavText}>Extras</Text> */}
           </TouchableOpacity>
         </View>

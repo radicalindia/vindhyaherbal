@@ -1,4 +1,4 @@
-package com.medicalonwheel
+package com.VindhyaHerbalDistributor
 
 import android.app.Application
 import com.facebook.react.PackageList

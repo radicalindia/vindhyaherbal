@@ -1,39 +1,85 @@
-import React from 'react';
-import { View, StyleSheet, Text, Image } from 'react-native';
+import {View, Text} from 'react-native';
+import React, {useEffect, useState} from 'react';
+import {globalStyles} from '../utils/GlobalStyles';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import {http} from '../utils/AxiosInstance';
+import {useIsFocused} from '@react-navigation/native';
+import theme from '../utils/theme';
 
 const Profile = () => {
-  return (
-    <View style={styles.container}>
+  const focus = useIsFocused();
+  const [loading, setLoading] = useState(false);
+  const [data, setData] = useState();
 
+  useEffect(() => {
+    fetchdata();
+  }, []);
+
+  const fetchdata = async () => {
+    const userid = await AsyncStorage.getItem('userid');
+    // console.log(listid,userid)
+    const body = {
+      method: 'myProfile',
+      distributorId: userid,
+    };
+    setLoading(true);
+    http
+      .get('/', {
+        params: {
+          ...body,
+        },
+      })
+      .then(response => {
+        console.log('Responses :', response.data);
+        setLoading(false);
+        setData(response.data?.response);
+        // setMeetupData(response?.data?.meetup);
+        // setpeopleData(response?.data?.pepole);
+      })
+      .catch(error => {
+        console.error('Error:', error);
+        Alert.alert('Network Error');
+        setLoading(false);
+      });
+  };
+  return (
+    <View style={[globalStyles.container2]}>
+      <View
+        style={{
+          justifyContent: 'center',
+          alignItems: 'center',
+          borderBottomWidth: 0.3,
+          borderColor: 'rgba(0,0,0,.1)',
+          height: 40,
+        }}>
+        <Text style={[globalStyles.text]}>Profile </Text>
+      </View>
+      <Text style={[globalStyles.text, {marginLeft: 10, marginVertical: 10}]}>
+        Name:{' '}
+        <Text style={[globalStyles.text, {color: theme.colors.primary}]}>
+          {data?.name}
+        </Text>
+      </Text>
+      <Text style={[globalStyles.text, {marginLeft: 10, marginVertical: 10}]}>
+        email:{' '}
+        <Text style={[globalStyles.text, {color: theme.colors.primary}]}>
+          {data?.email}
+        </Text>
+      </Text>
+      <Text style={[globalStyles.text, {marginLeft: 10, marginVertical: 10}]}>
+        mobile:{' '}
+        <Text style={[globalStyles.text, {color: theme.colors.primary}]}>
+          {data?.mobile}
+        </Text>
+      </Text>
+      <Text style={[globalStyles.text, {marginLeft: 10, marginVertical: 10}]}>
+        Pin Code:{' '}
+        <Text style={[globalStyles.text, {color: theme.colors.primary}]}>
+          {data?.pincode}
+        </Text>
+      </Text>
     </View>
   );
-}
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: 'center',
-    padding: 30,
-  },
-  profileImage: {
-    width: 150,
-    height: 150,
-    borderRadius: 10,
-    marginBottom: 20,
-  },
-  name: {
-    fontSize: 24,
-    fontWeight: 'bold',
-    marginBottom: 40,
-  },
-  email: {
-    fontSize: 18,
-    marginBottom: 10,
-  },
-  bio: {
-    fontSize: 16,
-    textAlign: 'center',
-  },
-})
+};
 
 export default Profile;
