@@ -125,6 +125,7 @@ const App = () => {
           />
 
 <Stack.Screen
+
             name="Login"
             component={Login}
             options={{ title: 'Welcome', headerShown: false }}
